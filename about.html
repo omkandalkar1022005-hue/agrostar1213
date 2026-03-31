@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroStar | आमच्याबद्दल - About Us</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Poppins', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #1e3a1f;
+            background: linear-gradient(135deg, #fef9e6 0%, #fff5e0 100%);
+        }
+
+        header {
+            background: #1e5622;
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #ffd966;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffd966;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #ffd966;
+            color: #ffd966;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: #ffd966;
+            color: #1e5622;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #1e5622, #2a7a2f);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '🌾';
+            font-size: 8rem;
+            position: absolute;
+            opacity: 0.1;
+            bottom: -20px;
+            right: 20px;
+        }
+
+        .page-header::after {
+            content: '🚜';
+            font-size: 8rem;
+            position: absolute;
+            opacity: 0.1;
+            top: -20px;
+            left: 20px;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* About Section */
+        .about-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .about-section h2 {
+            color: #1e5622;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            border-left: 4px solid #ffd966;
+            padding-left: 1rem;
+        }
+
+        .about-section p {
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffd966;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #1e5622;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        /* Mission Vision Section */
+        .mv-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .mv-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .mv-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .mv-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .mv-card h3 {
+            color: #1e5622;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .mv-card p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Values Section */
+        .values-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .value-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            background: #e8f5e9;
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .value-card h4 {
+            color: #1e5622;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .value-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .team-info {
+            padding: 1.5rem;
+        }
+
+        .team-info h3 {
+            color: #1e5622;
+            margin-bottom: 0.3rem;
+            font-size: 1.2rem;
+        }
+
+        .team-info p {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-desc {
+            color: #666;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* Timeline Section */
+        .timeline {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .timeline h2 {
+            color: #1e5622;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .timeline-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-left: 3px solid #ffd966;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .timeline-year {
+            font-weight: bold;
+            color: #1e5622;
+            min-width: 80px;
+            font-size: 1.1rem;
+        }
+
+        .timeline-text {
+            color: #555;
+        }
+
+        .back-home {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .back-btn {
+            background: #1e5622;
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #ffd966;
+            color: #1e5622;
+            transform: translateX(-5px);
+        }
+
+        footer {
+            background: #0f3a10;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links {
+                gap: 1rem;
+                justify-content: center;
+            }
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .timeline-item {
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🌾 Agro<span>Star</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html" data-key="nav_home">मुख्यपृष्ठ</a></li>
+                <li><a href="products.html" data-key="nav_products">उत्पादने</a></li>
+                <li><a href="seeds.html" data-key="nav_seeds">बियाणे</a></li>
+                <li><a href="fertilizers.html" data-key="nav_fertilizers">जैविक खते</a></li>
+                <li><a href="chemical.html" data-key="nav_chemical">रासायनिक खते</a></li>
+                <li><a href="pesticides.html" data-key="nav_pesticides">कीटकनाशके</a></li>
+                <li><a href="tonics.html" data-key="nav_tonics">शेती टॉनिक</a></li>
+                <li><a href="equipment.html" data-key="nav_equipment">शेती साहित्य</a></li>
+                <li><a href="tips.html" data-key="nav_tips">शेती टिप्स</a></li>
+                <li><a href="about.html" data-key="nav_about">आमच्याबद्दल</a></li>
+                <li><a href="contact.html" data-key="nav_contact">संपर्क</a></li>
+                <li>
+                    <div class="lang-switch">
+                        <button class="lang-btn active" data-lang="mr">मराठी</button>
+                        <button class="lang-btn" data-lang="hi">हिंदी</button>
+                        <button class="lang-btn" data-lang="en">English</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <h1 data-key="page_title">🌾 आमच्याबद्दल</h1>
+        <p data-key="page_subtitle">शेतकऱ्यांचा विश्वासू साथीदार - गेली 10 वर्षे</p>
+    </div>
+
+    <div class="container">
+        <!-- About Company -->
+        <div class="about-section">
+            <h2 data-key="about_title">📖 आमची कहाणी</h2>
+            <p data-key="about_text1">AgroStar ची स्थापना 2015 मध्ये झाली, जेव्हा आमचे संस्थापक श्री. महेंद्र शिंदे यांनी शेतकऱ्यांना दर्जेदार शेती उत्पादने सहज उपलब्ध व्हावीत यासाठी ही संस्था सुरू केली. आज AgroStar महाराष्ट्रातील सर्वात विश्वासू कृषी कंपनी म्हणून ओळखली जाते.</p>
+            <p data-key="about_text2">आमचे उद्दिष्ट शेतकऱ्यांना उच्च दर्जाची बियाणे, खते, कीटकनाशके आणि आधुनिक शेती साहित्य सर्वात कमी किमतीत उपलब्ध करून देणे आहे. आमच्याकडे 500+ कृषी तज्ज्ञांची टीम आहे जी शेतकऱ्यांना 24×7 मार्गदर्शन करते.</p>
+            <p data-key="about_text3">आजपर्यंत 5 लाखांहून अधिक शेतकरी AgroStar वर विश्वास ठेवतात. आम्ही 10,000+ गावांमध्ये सेवा पुरवत आहोत. आमचे ध्येय 2028 पर्यंत 50 लाख शेतकऱ्यांपर्यंत पोहोचण्याचे आहे.</p>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stat-card">
+                <div class="stat-number">10+</div>
+                <div class="stat-label" data-key="stat_years">वर्षांचा अनुभव</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5L+</div>
+                <div class="stat-label" data-key="stat_farmers">समाधानी शेतकरी</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">500+</div>
+                <div class="stat-label" data-key="stat_experts">कृषी तज्ज्ञ</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">10K+</div>
+                <div class="stat-label" data-key="stat_villages">गावांमध्ये सेवा</div>
+            </div>
+        </div>
+
+        <!-- Mission & Vision -->
+        <div class="mv-section">
+            <div class="mv-card">
+                <div class="mv-icon">🎯</div>
+                <h3 data-key="mission_title">आमचे ध्येय</h3>
+                <p data-key="mission_text">प्रत्येक शेतकऱ्याला दर्जेदार शेती उत्पादने आणि तज्ज्ञांचे मार्गदर्शन सहज उपलब्ध करून देणे, ज्यामुळे त्यांचे उत्पादन आणि उत्पन्न वाढू शकेल.</p>
+            </div>
+            <div class="mv-card">
+                <div class="mv-icon">👁️</div>
+                <h3 data-key="vision_title">आमचे स्वप्न</h3>
+                <p data-key="vision_text">भारतातील प्रत्येक शेतकऱ्याला सक्षम बनवून, शाश्वत आणि समृद्ध शेतीचे नवे पर्व सुरू करणे. "हर घर खेती, हर खेत हरा" हे आमचे स्वप्न आहे.</p>
+            </div>
+        </div>
+
+        <!-- Our Values -->
+        <div class="about-section">
+            <h2 data-key="values_title">⭐ आमची मूल्ये</h2>
+            <div class="values-section">
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <h4 data-key="value1_title">शेतकरी प्रथम</h4>
+                    <p data-key="value1_text">शेतकऱ्यांची गरज आणि समाधान हे आमचे सर्वोच्च प्राधान्य आहे.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">💎</div>
+                    <h4 data-key="value2_title">दर्जा आणि प्रामाणिकपणा</h4>
+                    <p data-key="value2_text">आम्ही फक्त प्रमाणित आणि उच्च दर्जाची उत्पादनेच विकतो.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🌱</div>
+                    <h4 data-key="value3_title">शाश्वत शेती</h4>
+                    <p data-key="value3_text">पर्यावरणपूरक शेती पद्धतींना प्रोत्साहन देतो.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">📚</div>
+                    <h4 data-key="value4_title">सतत शिक्षण</h4>
+                    <p data-key="value4_text">शेतकऱ्यांना नवीन तंत्रज्ञान आणि पद्धती शिकवतो.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🤲</div>
+                    <h4 data-key="value5_title">सामाजिक जबाबदारी</h4>
+                    <p data-key="value5_text">समाजासाठी उपयुक्त अशा विविध उपक्रम राबवतो.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our Team -->
+        <div class="about-section">
+            <h2 data-key="team_title">👥 आमची टीम</h2>
+            <div class="team-section">
+                <div class="team-card">
+                    <img class="team-img" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Founder">
+                    <div class="team-info">
+                        <h3>महेंद्र शिंदे</h3>
+                        <p data-key="team_founder">संस्थापक व व्यवस्थापकीय संचालक</p>
+                        <p class="team-desc" data-key="team_founder_desc">कृषी अभियंता, 15+ वर्षांचा अनुभव</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <img class="team-img" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Agronomist">
+                    <div class="team-info">
+                        <h3>डॉ. प्रिया देशमुख</h3>
+                        <p data-key="team_agronomist">प्रमुख कृषी शास्त्रज्ञ</p>
+                        <p class="team-desc" data-key="team_agronomist_desc">पीएच.डी. कृषी विज्ञान, 12+ वर्षांचा अनुभव</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <img class="team-img" src="https://randomuser.me/api/portraits/men/45.jpg" alt="Operations Head">
+                    <div class="team-info">
+                        <h3>अमोल जोशी</h3>
+                        <p data-key="team_operations">प्रमुख - कार्यकारी विभाग</p>
+                        <p class="team-desc" data-key="team_operations_desc">एमबीए, 10+ वर्षांचा अनुभव</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <img class="team-img" src="https://randomuser.me/api/portraits/women/89.jpg" alt="Customer Support">
+                    <div class="team-info">
+                        <h3>स्वाती पवार</h3>
+                        <p data-key="team_support">प्रमुख - ग्राहक सहाय्य</p>
+                        <p class="team-desc" data-key="team_support_desc">ग्राहक सेवा तज्ज्ञ, 8+ वर्षांचा अनुभव</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline">
+            <h2 data-key="timeline_title">📅 आमचा प्रवास</h2>
+            <div class="timeline-items">
+                <div class="timeline-item">
+                    <div class="timeline-year">2015</div>
+                    <div class="timeline-text" data-key="timeline_2015">AgroStar ची स्थापना - पुण्यात पहिले कार्यालय सुरू</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2017</div>
+                    <div class="timeline-text" data-key="timeline_2017">100+ गावांमध्ये सेवा विस्तार, ऑनलाइन स्टोअर लाँच</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2019</div>
+                    <div class="timeline-text" data-key="timeline_2019">1 लाख शेतकरी ग्राहकांचा टप्पा पार, महाराष्ट्रात विस्तार</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2021</div>
+                    <div class="timeline-text" data-key="timeline_2021">500+ कृषी तज्ज्ञांची टीम, 5000+ गावांमध्ये सेवा</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2023</div>
+                    <div class="timeline-text" data-key="timeline_2023">5 लाख शेतकऱ्यांचा टप्पा, 10,000+ गावांमध्ये सेवा</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2025</div>
+                    <div class="timeline-text" data-key="timeline_2025">मध्यप्रदेश, कर्नाटक, तेलंगणा राज्यांमध्ये विस्तार</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-home">
+            <a href="index.html" class="back-btn" data-key="back_home">← मुख्यपृष्ठावर जा</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>🌾 <span data-key="footer_tagline">AgroStar - शेतकऱ्यांचा विश्वासू साथीदार</span> 🌾</p>
+        <p>© 2025 AgroStar | <span data-key="footer_rights">सर्व हक्क राखीव</span></p>
+    </footer>
+
+    <script>
+        const translations = {
+            mr: {
+                nav_home: "मुख्यपृष्ठ",
+                nav_products: "उत्पादने",
+                nav_seeds: "बियाणे",
+                nav_fertilizers: "जैविक खते",
+                nav_chemical: "रासायनिक खते",
+                nav_pesticides: "कीटकनाशके",
+                nav_tonics: "शेती टॉनिक",
+                nav_equipment: "शेती साहित्य",
+                nav_tips: "शेती टिप्स",
+                nav_about: "आमच्याबद्दल",
+                nav_contact: "संपर्क",
+                page_title: "🌾 आमच्याबद्दल",
+                page_subtitle: "शेतकऱ्यांचा विश्वासू साथीदार - गेली 10 वर्षे",
+                about_title: "📖 आमची कहाणी",
+                about_text1: "AgroStar ची स्थापना 2015 मध्ये झाली, जेव्हा आमचे संस्थापक श्री. महेंद्र शिंदे यांनी शेतकऱ्यांना दर्जेदार शेती उत्पादने सहज उपलब्ध व्हावीत यासाठी ही संस्था सुरू केली. आज AgroStar महाराष्ट्रातील सर्वात विश्वासू कृषी कंपनी म्हणून ओळखली जाते.",
+                about_text2: "आमचे उद्दिष्ट शेतकऱ्यांना उच्च दर्जाची बियाणे, खते, कीटकनाशके आणि आधुनिक शेती साहित्य सर्वात कमी किमतीत उपलब्ध करून देणे आहे. आमच्याकडे 500+ कृषी तज्ज्ञांची टीम आहे जी शेतकऱ्यांना 24×7 मार्गदर्शन करते.",
+                about_text3: "आजपर्यंत 5 लाखांहून अधिक शेतकरी AgroStar वर विश्वास ठेवतात. आम्ही 10,000+ गावांमध्ये सेवा पुरवत आहोत. आमचे ध्येय 2028 पर्यंत 50 लाख शेतकऱ्यांपर्यंत पोहोचण्याचे आहे.",
+                stat_years: "वर्षांचा अनुभव",
+                stat_farmers: "समाधानी शेतकरी",
+                stat_experts: "कृषी तज्ज्ञ",
+                stat_villages: "गावांमध्ये सेवा",
+                mission_title: "आमचे ध्येय",
+                mission_text: "प्रत्येक शेतकऱ्याला दर्जेदार शेती उत्पादने आणि तज्ज्ञांचे मार्गदर्शन सहज उपलब्ध करून देणे, ज्यामुळे त्यांचे उत्पादन आणि उत्पन्न वाढू शकेल.",
+                vision_title: "आमचे स्वप्न",
+                vision_text: "भारतातील प्रत्येक शेतकऱ्याला सक्षम बनवून, शाश्वत आणि समृद्ध शेतीचे नवे पर्व सुरू करणे. 'हर घर खेती, हर खेत हरा' हे आमचे स्वप्न आहे.",
+                values_title: "⭐ आमची मूल्ये",
+                value1_title: "शेतकरी प्रथम",
+                value1_text: "शेतकऱ्यांची गरज आणि समाधान हे आमचे सर्वोच्च प्राधान्य आहे.",
+                value2_title: "दर्जा आणि प्रामाणिकपणा",
+                value2_text: "आम्ही फक्त प्रमाणित आणि उच्च दर्जाची उत्पादनेच विकतो.",
+                value3_title: "शाश्वत शेती",
+                value3_text: "पर्यावरणपूरक शेती पद्धतींना प्रोत्साहन देतो.",
+                value4_title: "सतत शिक्षण",
+                value4_text: "शेतकऱ्यांना नवीन तंत्रज्ञान आणि पद्धती शिकवतो.",
+                value5_title: "सामाजिक जबाबदारी",
+                value5_text: "समाजासाठी उपयुक्त अशा विविध उपक्रम राबवतो.",
+                team_title: "👥 आमची टीम",
+                team_founder: "संस्थापक व व्यवस्थापकीय संचालक",
+                team_founder_desc: "कृषी अभियंता, 15+ वर्षांचा अनुभव",
+                team_agronomist: "प्रमुख कृषी शास्त्रज्ञ",
+                team_agronomist_desc: "पीएच.डी. कृषी विज्ञान, 12+ वर्षांचा अनुभव",
+                team_operations: "प्रमुख - कार्यकारी विभाग",
+                team_operations_desc: "एमबीए, 10+ वर्षांचा अनुभव",
+                team_support: "प्रमुख - ग्राहक सहाय्य",
+                team_support_desc: "ग्राहक सेवा तज्ज्ञ, 8+ वर्षांचा अनुभव",
+                timeline_title: "📅 आमचा प्रवास",
+                timeline_2015: "AgroStar ची स्थापना - पुण्यात पहिले कार्यालय सुरू",
+                timeline_2017: "100+ गावांमध्ये सेवा विस्तार, ऑनलाइन स्टोअर लाँच",
+                timeline_2019: "1 लाख शेतकरी ग्राहकांचा टप्पा पार, महाराष्ट्रात विस्तार",
+                timeline_2021: "500+ कृषी तज्ज्ञांची टीम, 5000+ गावांमध्ये सेवा",
+                timeline_2023: "5 लाख शेतकऱ्यांचा टप्पा, 10,000+ गावांमध्ये सेवा",
+                timeline_2025: "मध्यप्रदेश, कर्नाटक, तेलंगणा राज्यांमध्ये विस्तार",
+                back_home: "← मुख्यपृष्ठावर जा",
+                footer_tagline: "AgroStar - शेतकऱ्यांचा विश्वासू साथीदार",
+                footer_rights: "सर्व हक्क राखीव"
+            },
+            hi: {
+                nav_home: "मुख्यपृष्ठ",
+                nav_products: "उत्पाद",
+                nav_seeds: "बीज",
+                nav_fertilizers: "जैविक खाद",
+                nav_chemical: "रासायनिक खाद",
+                nav_pesticides: "कीटनाशक",
+                nav_tonics: "कृषि टॉनिक",
+                nav_equipment: "कृषि उपकरण",
+                nav_tips: "कृषि टिप्स",
+                nav_about: "हमारे बारे में",
+                nav_contact: "संपर्क",
+                page_title: "🌾 हमारे बारे में",
+                page_subtitle: "किसानों का विश्वसनीय साथी - पिछले 10 वर्षों से",
+                about_title: "📖 हमारी कहानी",
+                about_text1: "AgroStar की स्थापना 2015 में हुई, जब हमारे संस्थापक श्री. महेंद्र शिंदे ने किसानों को गुणवत्तापूर्ण कृषि उत्पाद आसानी से उपलब्ध कराने के लिए यह संस्था शुरू की। आज AgroStar महाराष्ट्र की सबसे विश्वसनीय कृषि कंपनी के रूप में पहचानी जाती है।",
+                about_text2: "हमारा उद्देश्य किसानों को उच्च गुणवत्ता के बीज, खाद, कीटनाशक और आधुनिक कृषि सामग्री सबसे कम कीमत पर उपलब्ध कराना है। हमारे पास 500+ कृषि विशेषज्ञों की टीम है जो किसानों को 24×7 मार्गदर्शन करती है।",
+                about_text3: "आज तक 5 लाख से अधिक किसान AgroStar पर विश्वास करते हैं। हम 10,000+ गांवों में सेवा प्रदान कर रहे हैं। हमारा लक्ष्य 2028 तक 50 लाख किसानों तक पहुंचना है।",
+                stat_years: "वर्षों का अनुभव",
+                stat_farmers: "संतुष्ट किसान",
+                stat_experts: "कृषि विशेषज्ञ",
+                stat_villages: "गांवों में सेवा",
+                mission_title: "हमारा ध्येय",
+                mission_text: "प्रत्येक किसान को गुणवत्तापूर्ण कृषि उत्पाद और विशेषज्ञों का मार्गदर्शन आसानी से उपलब्ध कराना, जिससे उनका उत्पादन और आय बढ़ सके।",
+                vision_title: "हमारा सपना",
+                vision_text: "भारत के प्रत्येक किसान को सशक्त बनाकर, सतत और समृद्ध खेती का नया युग शुरू करना। 'हर घर खेती, हर खेत हरा' यह हमारा सपना है।",
+                values_title: "⭐ हमारे मूल्य",
+                value1_title: "किसान प्रथम",
+                value1_text: "किसानों की आवश्यकता और संतुष्टि हमारी सर्वोच्च प्राथमिकता है।",
+                value2_title: "गुणवत्ता और ईमानदारी",
+                value2_text: "हम केवल प्रमाणित और उच्च गुणवत्ता वाले उत्पाद ही बेचते हैं।",
+                value3_title: "सतत खेती",
+                value3_text: "पर्यावरण अनुकूल खेती के तरीकों को बढ़ावा देते हैं।",
+                value4_title: "निरंतर शिक्षा",
+                value4_text: "किसानों को नई तकनीक और विधियाँ सिखाते हैं।",
+                value5_title: "सामाजिक जिम्मेदारी",
+                value5_text: "समाज के लिए उपयोगी विभिन्न कार्यक्रम चलाते हैं।",
+                team_title: "👥 हमारी टीम",
+                team_founder: "संस्थापक एवं प्रबंध निदेशक",
+                team_founder_desc: "कृषि अभियंता, 15+ वर्षों का अनुभव",
+                team_agronomist: "प्रमुख कृषि वैज्ञानिक",
+                team_agronomist_desc: "पीएच.डी. कृषि विज्ञान, 12+ वर्षों का अनुभव",
+                team_operations: "प्रमुख - कार्यकारी विभाग",
+                team_operations_desc: "एमबीए, 10+ वर्षों का अनुभव",
+                team_support: "प्रमुख - ग्राहक सहायता",
+                team_support_desc: "ग्राहक सेवा विशेषज्ञ, 8+ वर्षों का अनुभव",
+                timeline_title: "📅 हमारा सफर",
+                timeline_2015: "AgroStar की स्थापना - पुणे में पहला कार्यालय शुरू",
+                timeline_2017: "100+ गांवों में सेवा विस्तार, ऑनलाइन स्टोर लॉन्च",
+                timeline_2019: "1 लाख किसान ग्राहकों का आंकड़ा पार, महाराष्ट्र में विस्तार",
+                timeline_2021: "500+ कृषि विशेषज्ञों की टीम, 5000+ गांवों में सेवा",
+                timeline_2023: "5 लाख किसानों का आंकड़ा, 10,000+ गांवों में सेवा",
+                timeline_2025: "मध्यप्रदेश, कर्नाटक, तेलंगाना राज्यों में विस्तार",
+                back_home: "← मुख्यपृष्ठ पर जाएं",
+                footer_tagline: "AgroStar - किसानों का विश्वसनीय साथी",
+                footer_rights: "सभी अधिकार सुरक्षित"
+            },
+            en: {
+                nav_home: "Home",
+                nav_products: "Products",
+                nav_seeds: "Seeds",
+                nav_fertilizers: "Organic Fertilizers",
+                nav_chemical: "Chemical Fertilizers",
+                nav_pesticides: "Pesticides",
+                nav_tonics: "Agro Tonics",
+                nav_equipment: "Farm Equipment",
+                nav_tips: "Farming Tips",
+                nav_about: "About Us",
+                nav_contact: "Contact",
+                page_title: "🌾 About Us",
+                page_subtitle: "Farmer's Trusted Partner - For 10 Years",
+                about_title: "📖 Our Story",
+                about_text1: "AgroStar was established in 2015 when our founder Mr. Mahendra Shinde started this organization to make quality agricultural products easily available to farmers. Today, AgroStar is recognized as the most trusted agricultural company in Maharashtra.",
+                about_text2: "Our goal is to provide farmers with high-quality seeds, fertilizers, pesticides, and modern farming equipment at the lowest prices. We have a team of 500+ agriculture experts who guide farmers 24×7.",
+                about_text3: "Today, over 5 lakh farmers trust AgroStar. We serve in 10,000+ villages. Our goal is to reach 50 lakh farmers by 2028.",
+                stat_years: "Years of Experience",
+                stat_farmers: "Happy Farmers",
+                stat_experts: "Agri Experts",
+                stat_villages: "Villages Served",
+                mission_title: "Our Mission",
+                mission_text: "To provide every farmer with quality agricultural products and expert guidance easily, so that their production and income can increase.",
+                vision_title: "Our Vision",
+                vision_text: "To empower every farmer in India and usher in a new era of sustainable and prosperous farming. 'Har Ghar Kheti, Har Khet Hara' is our dream.",
+                values_title: "⭐ Our Values",
+                value1_title: "Farmer First",
+                value1_text: "Farmers' needs and satisfaction are our highest priority.",
+                value2_title: "Quality & Integrity",
+                value2_text: "We sell only certified and high-quality products.",
+                value3_title: "Sustainable Farming",
+                value3_text: "We promote environmentally friendly farming practices.",
+                value4_title: "Continuous Learning",
+                value4_text: "We teach farmers new technologies and methods.",
+                value5_title: "Social Responsibility",
+                value5_text: "We run various programs beneficial to society.",
+                team_title: "👥 Our Team",
+                team_founder: "Founder & Managing Director",
+                team_founder_desc: "Agricultural Engineer, 15+ years experience",
+                team_agronomist: "Chief Agronomist",
+                team_agronomist_desc: "Ph.D. Agricultural Science, 12+ years experience",
+                team_operations: "Head - Operations",
+                team_operations_desc: "MBA, 10+ years experience",
+                team_support: "Head - Customer Support",
+                team_support_desc: "Customer Service Expert, 8+ years experience",
+                timeline_title: "📅 Our Journey",
+                timeline_2015: "AgroStar Established - First office in Pune",
+                timeline_2017: "Expanded to 100+ villages, Online store launched",
+                timeline_2019: "Reached 1 lakh farmers, Expanded across Maharashtra",
+                timeline_2021: "500+ Agriculture Experts team, 5000+ villages served",
+                timeline_2023: "5 lakh farmers milestone, 10,000+ villages served",
+                timeline_2025: "Expanded to Madhya Pradesh, Karnataka, Telangana",
+                back_home: "← Back to Home",
+                footer_tagline: "AgroStar - Farmer's Trusted Partner",
+                footer_rights: "All Rights Reserved"
+            }
+        };
+
+        let currentLang = 'mr';
+
+        function updateLanguage(lang) {
+            currentLang = lang;
+            
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) btn.classList.add('active');
+            });
+            
+            localStorage.setItem('preferred_language', lang);
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => updateLanguage(btn.getAttribute('data-lang')));
+        });
+        
+        const savedLang = localStorage.getItem('preferred_language') || 'mr';
+        updateLanguage(savedLang);
+    </script>
+</body>
+</html>

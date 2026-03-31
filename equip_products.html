@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroStar | शेती साहित्य - Farming Equipment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Poppins', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #1e3a1f;
+            background: linear-gradient(135deg, #fef9e6 0%, #fff5e0 100%);
+        }
+
+        header {
+            background: #1e5622;
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #ffd966;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffd966;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #ffd966;
+            color: #ffd966;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: #ffd966;
+            color: #1e5622;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #1e5622, #2a7a2f);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '🔧';
+            font-size: 8rem;
+            position: absolute;
+            opacity: 0.1;
+            bottom: -20px;
+            right: 20px;
+        }
+
+        .page-header::after {
+            content: '🚜';
+            font-size: 8rem;
+            position: absolute;
+            opacity: 0.1;
+            top: -20px;
+            left: 20px;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .filter-section {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 2px solid #1e5622;
+            color: #1e5622;
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #1e5622;
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.15);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #ffd966;
+            color: #1e5622;
+            padding: 0.25rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .product-badge.hot {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .product-badge.bestseller {
+            background: #4caf50;
+            color: white;
+        }
+
+        .product-badge.new {
+            background: #2196f3;
+            color: white;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1rem;
+        }
+
+        .product-category {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #1e5622;
+            padding: 0.15rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            color: #1e5622;
+            margin-bottom: 0.3rem;
+            font-weight: bold;
+        }
+
+        .product-desc {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .product-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-tag {
+            background: #f0f0f0;
+            padding: 0.15rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            color: #555;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ff8c00;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price small {
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        .order-btn {
+            display: block;
+            background: linear-gradient(135deg, #1e5622, #2a7a2f);
+            color: white;
+            text-align: center;
+            padding: 0.6rem;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .order-btn:hover {
+            background: linear-gradient(135deg, #ffd966, #ffcd38);
+            color: #1e5622;
+            transform: scale(1.02);
+        }
+
+        .back-home {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .back-btn {
+            background: #1e5622;
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #ffd966;
+            color: #1e5622;
+            transform: translateX(-5px);
+        }
+
+        footer {
+            background: #0f3a10;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links {
+                gap: 1rem;
+                justify-content: center;
+            }
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🌾 Agro<span>Star</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html" data-key="nav_home">मुख्यपृष्ठ</a></li>
+                <li><a href="seeds_products.html" data-key="nav_products">उत्पादने</a></li>
+                <li><a href="seeds_products.html" data-key="nav_seeds">बियाणे</a></li>
+                <li><a href="ferti_products.html" data-key="nav_fertilizers">जैविक खते</a></li>
+                <li><a href="chem_fer_products.html" data-key="nav_chemical">रासायनिक खते</a></li>
+                <li><a href="pestisides_products.html" data-key="nav_pesticides">कीटकनाशके</a></li>
+                <li><a href="tonics_products.html" data-key="nav_tonics">शेती टॉनिक</a></li>
+                <li><a href="equip_products.html" data-key="nav_equipment">शेती साहित्य</a></li>
+                <li><a href="tips.html" data-key="nav_tips">शेती टिप्स</a></li>
+                <li><a href="about.html" data-key="nav_contact">संपर्क</a></li>
+                <li>
+                    <div class="lang-switch">
+                        <button class="lang-btn active" data-lang="mr">मराठी</button>
+                        <button class="lang-btn" data-lang="hi">हिंदी</button>
+                        <button class="lang-btn" data-lang="en">English</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <h1 data-key="page_title">🔧 शेती साहित्य</h1>
+        <p data-key="page_subtitle">आधुनिक शेतीसाठी सर्व साहित्य - दर्जेदार, टिकाऊ आणि परवडणारे</p>
+    </div>
+
+    <div class="filter-section">
+        <div class="filter-bar" id="filterBar">
+            <button class="filter-btn active" data-filter="all" data-key="filter_all">सर्व</button>
+            <button class="filter-btn" data-filter="hand" data-key="filter_hand">हाताची साधने</button>
+            <button class="filter-btn" data-filter="power" data-key="filter_power">पॉवर टूल्स</button>
+            <button class="filter-btn" data-filter="irrigation" data-key="filter_irrigation">सिंचन साहित्य</button>
+            <button class="filter-btn" data-filter="harvest" data-key="filter_harvest">कापणी साहित्य</button>
+            <button class="filter-btn" data-filter="protection" data-key="filter_protection">संरक्षण साहित्य</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="products-grid" id="productsGrid"></div>
+        <div class="back-home">
+            <a href="index.html" class="back-btn" data-key="back_home">← मुख्यपृष्ठावर जा</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>🌾 <span data-key="footer_tagline">AgroStar - शेतकऱ्यांचा विश्वासू साथीदार</span> 🌾</p>
+        <p>© 2025 AgroStar | <span data-key="footer_rights">सर्व हक्क राखीव</span></p>
+    </footer>
+
+    <script>
+        // Complete Farming Equipment Data - 20+ Products in 3 Languages
+        const equipmentData = {
+            mr: [
+                { id: 1, name: "हाताची कोळपणी", category: "hand", price: "₹450", desc: "मजबूत हाताची कोळपणी, तण काढण्यासाठी", features: ["टिकाऊ लोखंडी", "आरामदायी हँडल", "हलके वजन"], badge: "bestseller", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 2, name: "कुऱ्हाड", category: "hand", price: "₹350", desc: "लाकूड तोडण्यासाठी मजबूत कुऱ्हाड", features: ["टिकाऊ स्टील", "मजबूत हँडल", "तीक्ष्ण धार"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 3, name: "कोयता", category: "hand", price: "₹280", desc: "गवत कापण्यासाठी कोयता", features: ["हलके वजन", "तीक्ष्ण धार", "आरामदायी हँडल"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 4, name: "पिचकारी", category: "hand", price: "₹120", desc: "द्रव खते फवारणीसाठी पिचकारी", features: ["5 लिटर क्षमता", "प्लास्टिक बॉडी", "सोपे वापर"], badge: "hot", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 5, name: "छाटणी कातर", category: "hand", price: "₹180", desc: "फळे, फुले छाटणीसाठी कातर", features: ["स्टेनलेस स्टील", "तीक्ष्ण धार", "सोपे वापर"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 6, name: "पॉवर टिलर", category: "power", price: "₹45,000", desc: "शेती नांगरणीसाठी पॉवर टिलर", features: ["9 HP इंजिन", "कमी इंधन", "सोपे चालन"], badge: "bestseller", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 7, name: "बॅकपॅक स्प्रेयर", category: "power", price: "₹3,500", desc: "फवारणीसाठी बॅकपॅक स्प्रेयर", features: ["16 लिटर क्षमता", "बॅटरी चालित", "आरामदायी"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 8, name: "वीड कटर", category: "power", price: "₹8,500", desc: "तण काढण्यासाठी वीड कटर", features: ["बॅटरी चालित", "हलके वजन", "तीक्ष्ण ब्लेड"], badge: "hot", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 9, name: "वॉटर पंप", category: "irrigation", price: "₹6,500", desc: "शेतात पाणी देण्यासाठी पंप", features: ["1 HP मोटर", "कमी वीज", "जलद पाणी पुरवठा"], badge: "bestseller", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 10, name: "ड्रिप सिंचन किट", category: "irrigation", price: "₹2,500/एकर", desc: "पाणी बचतीसाठी ड्रिप सिंचन", features: ["पाणी बचत", "एकसारखे पाणी", "सोपी बसवणूक"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 11, name: "स्प्रिंकलर सिस्टीम", category: "irrigation", price: "₹3,800/एकर", desc: "फवारणी सिंचन प्रणाली", features: ["व्यापक फवारणी", "पाणी बचत", "सर्व पिकांसाठी"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 12, name: "पाईप्स व फिटिंग्ज", category: "irrigation", price: "₹150/मीटर", desc: "सिंचनासाठी पाईप्स व फिटिंग्ज", features: ["PVC पाईप्स", "टिकाऊ", "गळती रहित"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 13, name: "हाताचा विळा", category: "harvest", price: "₹180", desc: "धान्य कापणीसाठी हाताचा विळा", features: ["तीक्ष्ण धार", "मजबूत हँडल", "हलके वजन"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 14, name: "कापणी कातर", category: "harvest", price: "₹220", desc: "फळे, भाजीपाला कापणीसाठी", features: ["स्टेनलेस स्टील", "तीक्ष्ण धार", "सोपे वापर"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 15, name: "धान्य साठवण ड्रम", category: "harvest", price: "₹1,200", desc: "धान्य साठवण्यासाठी ड्रम", features: ["प्लास्टिक ड्रम", "ओलावा रहित", "200 किलो क्षमता"], badge: "bestseller", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 16, name: "गोणपाट", category: "harvest", price: "₹50/पीस", desc: "धान्य साठवण्यासाठी गोणपाट", features: ["जाड प्लास्टिक", "ओलावा रहित", "मोठा आकार"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 17, name: "शेतातील जाळी", category: "protection", price: "₹800/रोल", desc: "पिकांचे संरक्षणासाठी जाळी", features: ["UV प्रतिरोधक", "पक्षी संरक्षण", "टिकाऊ"], badge: "new", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 18, name: "पॉलिहाऊस", category: "protection", price: "₹15,000", desc: "पिकांसाठी पॉलिहाऊस", features: ["तापमान नियंत्रण", "उच्च उत्पादन", "टिकाऊ"], badge: "hot", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 19, name: "शेतकरी टोपी", category: "protection", price: "₹120", desc: "उन्हापासून संरक्षणासाठी टोपी", features: ["यूव्ही प्रोटेक्शन", "हलके वजन", "श्वास घेणारी"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 20, name: "रबर बूट", category: "protection", price: "₹350", desc: "शेतात काम करताना रबर बूट", features: ["वॉटरप्रूफ", "नॉन-स्लीप", "टिकाऊ"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 21, name: "हातमोजे", category: "protection", price: "₹80", desc: "शेतात काम करताना हातमोजे", features: ["रबराइज्ड", "काट्यापासून संरक्षण", "आरामदायी"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 22, name: "पॉवर सॉ", category: "power", price: "₹12,000", desc: "लाकूड तोडण्यासाठी पॉवर सॉ", features: ["इलेक्ट्रिक मोटर", "तीक्ष्ण चेन", "सुरक्षित"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" }
+            ],
+            hi: [
+                { id: 1, name: "हाथ की कुदाली", category: "hand", price: "₹450", desc: "मजबूत हाथ की कुदाली, खरपतवार निकालने के लिए", features: ["टिकाऊ लोहे की", "आरामदायी हैंडल", "हल्का वजन"], badge: "bestseller", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 2, name: "कुल्हाड़ी", category: "hand", price: "₹350", desc: "लकड़ी काटने के लिए मजबूत कुल्हाड़ी", features: ["टिकाऊ स्टील", "मजबूत हैंडल", "तीक्ष्ण धार"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 3, name: "हँसिया", category: "hand", price: "₹280", desc: "घास काटने के लिए हँसिया", features: ["हल्का वजन", "तीक्ष्ण धार", "आरामदायी हैंडल"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 4, name: "पिचकारी", category: "hand", price: "₹120", desc: "तरल खाद छिड़काव के लिए पिचकारी", features: ["5 लीटर क्षमता", "प्लास्टिक बॉडी", "आसान उपयोग"], badge: "hot", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 5, name: "काटने की कैंची", category: "hand", price: "₹180", desc: "फल, फूल काटने के लिए कैंची", features: ["स्टेनलेस स्टील", "तीक्ष्ण धार", "आसान उपयोग"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 6, name: "पॉवर टिलर", category: "power", price: "₹45,000", desc: "खेत जोतने के लिए पॉवर टिलर", features: ["9 HP इंजन", "कम ईंधन", "आसान चालन"], badge: "bestseller", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 7, name: "बैकपैक स्प्रेयर", category: "power", price: "₹3,500", desc: "छिड़काव के लिए बैकपैक स्प्रेयर", features: ["16 लीटर क्षमता", "बैटरी चालित", "आरामदायी"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 8, name: "वीड कटर", category: "power", price: "₹8,500", desc: "खरपतवार काटने के लिए वीड कटर", features: ["बैटरी चालित", "हल्का वजन", "तीक्ष्ण ब्लेड"], badge: "hot", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 9, name: "वॉटर पंप", category: "irrigation", price: "₹6,500", desc: "खेत में पानी देने के लिए पंप", features: ["1 HP मोटर", "कम बिजली", "तेज़ पानी आपूर्ति"], badge: "bestseller", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 10, name: "ड्रिप सिंचाई किट", category: "irrigation", price: "₹2,500/एकर", desc: "पानी बचत के लिए ड्रिप सिंचाई", features: ["पानी बचत", "समान पानी", "आसान स्थापना"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 11, name: "स्प्रिंकलर सिस्टम", category: "irrigation", price: "₹3,800/एकर", desc: "फव्वारा सिंचाई प्रणाली", features: ["व्यापक छिड़काव", "पानी बचत", "सभी फसलों के लिए"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 12, name: "पाइप्स व फिटिंग्स", category: "irrigation", price: "₹150/मीटर", desc: "सिंचाई के लिए पाइप्स व फिटिंग्स", features: ["PVC पाइप्स", "टिकाऊ", "रिसाव रहित"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 13, name: "हाथ का दरांती", category: "harvest", price: "₹180", desc: "अनाज काटने के लिए हाथ का दरांती", features: ["तीक्ष्ण धार", "मजबूत हैंडल", "हल्का वजन"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 14, name: "कटाई कैंची", category: "harvest", price: "₹220", desc: "फल, सब्जी कटाई के लिए", features: ["स्टेनलेस स्टील", "तीक्ष्ण धार", "आसान उपयोग"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 15, name: "अनाज भंडारण ड्रम", category: "harvest", price: "₹1,200", desc: "अनाज भंडारण के लिए ड्रम", features: ["प्लास्टिक ड्रम", "नमी रहित", "200 किलो क्षमता"], badge: "bestseller", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 16, name: "तिरपाल", category: "harvest", price: "₹50/पीस", desc: "अनाज भंडारण के लिए तिरपाल", features: ["मोटा प्लास्टिक", "नमी रहित", "बड़ा आकार"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 17, name: "खेत की जाली", category: "protection", price: "₹800/रोल", desc: "फसलों की सुरक्षा के लिए जाली", features: ["UV प्रतिरोधक", "पक्षी सुरक्षा", "टिकाऊ"], badge: "new", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 18, name: "पॉलिहाउस", category: "protection", price: "₹15,000", desc: "फसलों के लिए पॉलिहाउस", features: ["तापमान नियंत्रण", "उच्च उत्पादन", "टिकाऊ"], badge: "hot", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 19, name: "किसान टोपी", category: "protection", price: "₹120", desc: "धूप से बचाव के लिए टोपी", features: ["यूवी प्रोटेक्शन", "हल्का वजन", "सांस लेने वाली"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 20, name: "रबर बूट", category: "protection", price: "₹350", desc: "खेत में काम करते समय रबर बूट", features: ["वॉटरप्रूफ", "नॉन-स्लीप", "टिकाऊ"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 21, name: "हाथ के दस्ताने", category: "protection", price: "₹80", desc: "खेत में काम करते समय हाथ के दस्ताने", features: ["रबराइज्ड", "कांटों से बचाव", "आरामदायी"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 22, name: "पॉवर सॉ", category: "power", price: "₹12,000", desc: "लकड़ी काटने के लिए पॉवर सॉ", features: ["इलेक्ट्रिक मोटर", "तीक्ष्ण चेन", "सुरक्षित"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" }
+            ],
+            en: [
+                { id: 1, name: "Hand Hoe", category: "hand", price: "₹450", desc: "Strong hand hoe for weeding", features: ["Durable iron", "Comfortable handle", "Light weight"], badge: "bestseller", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 2, name: "Axe", category: "hand", price: "₹350", desc: "Strong axe for cutting wood", features: ["Durable steel", "Strong handle", "Sharp edge"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 3, name: "Sickle", category: "hand", price: "₹280", desc: "Sickle for cutting grass", features: ["Light weight", "Sharp edge", "Comfortable handle"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 4, name: "Sprayer Pump", category: "hand", price: "₹120", desc: "Hand sprayer for liquid fertilizers", features: ["5 liter capacity", "Plastic body", "Easy to use"], badge: "hot", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 5, name: "Pruning Shears", category: "hand", price: "₹180", desc: "Shears for cutting fruits and flowers", features: ["Stainless steel", "Sharp edge", "Easy use"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 6, name: "Power Tiller", category: "power", price: "₹45,000", desc: "Power tiller for ploughing", features: ["9 HP engine", "Fuel efficient", "Easy operation"], badge: "bestseller", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 7, name: "Backpack Sprayer", category: "power", price: "₹3,500", desc: "Backpack sprayer for spraying", features: ["16 liter capacity", "Battery operated", "Comfortable"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 8, name: "Weed Cutter", category: "power", price: "₹8,500", desc: "Weed cutter for removing weeds", features: ["Battery operated", "Light weight", "Sharp blade"], badge: "hot", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 9, name: "Water Pump", category: "irrigation", price: "₹6,500", desc: "Water pump for irrigation", features: ["1 HP motor", "Energy efficient", "Fast water supply"], badge: "bestseller", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 10, name: "Drip Irrigation Kit", category: "irrigation", price: "₹2,500/acre", desc: "Drip irrigation for water conservation", features: ["Water saving", "Uniform water", "Easy installation"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 11, name: "Sprinkler System", category: "irrigation", price: "₹3,800/acre", desc: "Sprinkler irrigation system", features: ["Wide coverage", "Water saving", "For all crops"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 12, name: "Pipes & Fittings", category: "irrigation", price: "₹150/meter", desc: "Pipes and fittings for irrigation", features: ["PVC pipes", "Durable", "Leak proof"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 13, name: "Hand Scythe", category: "harvest", price: "₹180", desc: "Hand scythe for harvesting grains", features: ["Sharp edge", "Strong handle", "Light weight"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 14, name: "Harvesting Shears", category: "harvest", price: "₹220", desc: "Shears for fruits and vegetables", features: ["Stainless steel", "Sharp edge", "Easy use"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 15, name: "Grain Storage Drum", category: "harvest", price: "₹1,200", desc: "Drum for grain storage", features: ["Plastic drum", "Moisture proof", "200 kg capacity"], badge: "bestseller", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 16, name: "Tarpaulin", category: "harvest", price: "₹50/piece", desc: "Tarpaulin for grain storage", features: ["Thick plastic", "Moisture proof", "Large size"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 17, name: "Farm Net", category: "protection", price: "₹800/roll", desc: "Net for crop protection", features: ["UV resistant", "Bird protection", "Durable"], badge: "new", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 18, name: "Polyhouse", category: "protection", price: "₹15,000", desc: "Polyhouse for crops", features: ["Temperature control", "High yield", "Durable"], badge: "hot", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 19, name: "Farmer Hat", category: "protection", price: "₹120", desc: "Hat for sun protection", features: ["UV protection", "Light weight", "Breathable"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 20, name: "Rubber Boots", category: "protection", price: "₹350", desc: "Rubber boots for farm work", features: ["Waterproof", "Non-slip", "Durable"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 21, name: "Gloves", category: "protection", price: "₹80", desc: "Gloves for farm work", features: ["Rubberized", "Thorn protection", "Comfortable"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" },
+                { id: 22, name: "Power Saw", category: "power", price: "₹12,000", desc: "Power saw for cutting wood", features: ["Electric motor", "Sharp chain", "Safe"], badge: "", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400" }
+            ]
+        };
+
+        const translations = {
+            mr: {
+                nav_home: "मुख्यपृष्ठ",
+                nav_products: "उत्पादने",
+                nav_seeds: "बियाणे",
+                nav_fertilizers: "जैविक खते",
+                nav_chemical: "रासायनिक खते",
+                nav_pesticides: "कीटकनाशके",
+                nav_tonics: "शेती टॉनिक",
+                nav_equipment: "शेती साहित्य",
+                nav_tips: "शेती टिप्स",
+                nav_contact: "संपर्क",
+                page_title: "🔧 शेती साहित्य",
+                page_subtitle: "आधुनिक शेतीसाठी सर्व साहित्य - दर्जेदार, टिकाऊ आणि परवडणारे",
+                filter_all: "सर्व",
+                filter_hand: "हाताची साधने",
+                filter_power: "पॉवर टूल्स",
+                filter_irrigation: "सिंचन साहित्य",
+                filter_harvest: "कापणी साहित्य",
+                filter_protection: "संरक्षण साहित्य",
+                back_home: "← मुख्यपृष्ठावर जा",
+                footer_tagline: "AgroStar - शेतकऱ्यांचा विश्वासू साथीदार",
+                footer_rights: "सर्व हक्क राखीव",
+                order_btn: "🛒 आता ऑर्डर करा"
+            },
+            hi: {
+                nav_home: "मुख्यपृष्ठ",
+                nav_products: "उत्पाद",
+                nav_seeds: "बीज",
+                nav_fertilizers: "जैविक खाद",
+                nav_chemical: "रासायनिक खाद",
+                nav_pesticides: "कीटनाशक",
+                nav_tonics: "कृषि टॉनिक",
+                nav_equipment: "कृषि उपकरण",
+                nav_tips: "कृषि टिप्स",
+                nav_contact: "संपर्क",
+                page_title: "🔧 कृषि उपकरण",
+                page_subtitle: "आधुनिक खेती के लिए सभी सामग्री - गुणवत्तापूर्ण, टिकाऊ और किफायती",
+                filter_all: "सभी",
+                filter_hand: "हाथ के उपकरण",
+                filter_power: "पॉवर टूल्स",
+                filter_irrigation: "सिंचाई सामग्री",
+                filter_harvest: "कटाई सामग्री",
+                filter_protection: "सुरक्षा सामग्री",
+                back_home: "← मुख्यपृष्ठ पर जाएं",
+                footer_tagline: "AgroStar - किसानों का विश्वसनीय साथी",
+                footer_rights: "सभी अधिकार सुरक्षित",
+                order_btn: "🛒 अभी ऑर्डर करें"
+            },
+            en: {
+                nav_home: "Home",
+                nav_products: "Products",
+                nav_seeds: "Seeds",
+                nav_fertilizers: "Organic Fertilizers",
+                nav_chemical: "Chemical Fertilizers",
+                nav_pesticides: "Pesticides",
+                nav_tonics: "Agro Tonics",
+                nav_equipment: "Farm Equipment",
+                nav_tips: "Farming Tips",
+                nav_contact: "Contact",
+                page_title: "🔧 Farm Equipment",
+                page_subtitle: "All modern farming tools - Quality, Durable & Affordable",
+                filter_all: "All",
+                filter_hand: "Hand Tools",
+                filter_power: "Power Tools",
+                filter_irrigation: "Irrigation Equipment",
+                filter_harvest: "Harvesting Tools",
+                filter_protection: "Protection Gear",
+                back_home: "← Back to Home",
+                footer_tagline: "AgroStar - Farmer's Trusted Partner",
+                footer_rights: "All Rights Reserved",
+                order_btn: "🛒 Order Now"
+            }
+        };
+
+        let currentLang = 'mr';
+        let currentFilter = 'all';
+
+        function getBadgeClass(badge) {
+            if (badge === 'hot') return 'hot';
+            if (badge === 'bestseller') return 'bestseller';
+            if (badge === 'new') return 'new';
+            return '';
+        }
+
+        function getBadgeText(badge, lang) {
+            const texts = {
+                mr: { hot: "हॉट", bestseller: "बेस्टसेलर", new: "नवीन" },
+                hi: { hot: "हॉट", bestseller: "बेस्टसेलर", new: "नया" },
+                en: { hot: "Hot", bestseller: "Bestseller", new: "New" }
+            };
+            if (badge === 'hot') return texts[lang].hot;
+            if (badge === 'bestseller') return texts[lang].bestseller;
+            if (badge === 'new') return texts[lang].new;
+            return '';
+        }
+
+        function getCategoryName(category, lang) {
+            const names = {
+                mr: { hand: "हाताची साधने", power: "पॉवर टूल्स", irrigation: "सिंचन साहित्य", harvest: "कापणी साहित्य", protection: "संरक्षण साहित्य" },
+                hi: { hand: "हाथ के उपकरण", power: "पॉवर टूल्स", irrigation: "सिंचाई सामग्री", harvest: "कटाई सामग्री", protection: "सुरक्षा सामग्री" },
+                en: { hand: "Hand Tools", power: "Power Tools", irrigation: "Irrigation", harvest: "Harvesting", protection: "Protection" }
+            };
+            return names[lang][category] || category;
+        }
+
+        function renderProducts() {
+            const products = equipmentData[currentLang];
+            if (!products || products.length === 0) {
+                document.getElementById('productsGrid').innerHTML = '<div style="text-align:center; padding:3rem;">कोणतीही उत्पादने सापडली नाहीत / No products found</div>';
+                return;
+            }
+            
+            const filtered = currentFilter === 'all' ? products : products.filter(p => p.category === currentFilter);
+            const grid = document.getElementById('productsGrid');
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div style="text-align:center; padding:3rem;">या श्रेणीत कोणतीही उत्पादने नाहीत / No products in this category</div>';
+                return;
+            }
+            
+            grid.innerHTML = filtered.map(product => `
+                <div class="product-card">
+                    ${product.badge ? `<div class="product-badge ${getBadgeClass(product.badge)}">${getBadgeText(product.badge, currentLang)}</div>` : ''}
+                    <img class="product-img" src="${product.image}" alt="${product.name}" onerror="this.src='https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400'">
+                    <div class="product-info">
+                        <span class="product-category">${getCategoryName(product.category, currentLang)}</span>
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-desc">${product.desc}</p>
+                        <div class="product-features">
+                            ${product.features.map(f => `<span class="feature-tag">✓ ${f}</span>`).join('')}
+                        </div>
+                        <div class="product-price">${product.price}</div>
+                        <button class="order-btn" onclick="alert('${currentLang === 'mr' ? 'ऑर्डर स्वीकारली गेली! लवकरच संपर्क करू.' : currentLang === 'hi' ? 'ऑर्डर स्वीकार कर ली गई! जल्द संपर्क करेंगे.' : 'Order placed! We will contact you soon.'}')">${translations[currentLang].order_btn}</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateLanguage(lang) {
+            currentLang = lang;
+            
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    if (el.tagName === 'BUTTON' && el.classList.contains('order-btn')) return;
+                    el.textContent = translations[lang][key];
+                }
+            });
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                const key = btn.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    btn.textContent = translations[lang][key];
+                }
+            });
+            
+            renderProducts();
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) btn.classList.add('active');
+            });
+            
+            localStorage.setItem('preferred_language', lang);
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => updateLanguage(btn.getAttribute('data-lang')));
+        });
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.getAttribute('data-filter');
+                renderProducts();
+            });
+        });
+        
+        const savedLang = localStorage.getItem('preferred_language') || 'mr';
+        updateLanguage(savedLang);
+    </script>
+</body>
+</html>

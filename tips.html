@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroStar | शेती टिप्स - Farming Tips</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Poppins', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #1e3a1f;
+            background: linear-gradient(135deg, #fef9e6 0%, #fff5e0 100%);
+        }
+
+        header {
+            background: #1e5622;
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #ffd966;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffd966;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #ffd966;
+            color: #ffd966;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: #ffd966;
+            color: #1e5622;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #1e5622, #2a7a2f);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '📚';
+            font-size: 8rem;
+            position: absolute;
+            opacity: 0.1;
+            bottom: -20px;
+            right: 20px;
+        }
+
+        .page-header::after {
+            content: '🌾';
+            font-size: 8rem;
+            position: absolute;
+            opacity: 0.1;
+            top: -20px;
+            left: 20px;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .filter-section {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 2px solid #1e5622;
+            color: #1e5622;
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #1e5622;
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .tip-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.15);
+        }
+
+        .tip-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ffd966;
+            color: #1e5622;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .tip-badge.important {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .tip-badge.seasonal {
+            background: #4caf50;
+            color: white;
+        }
+
+        .tip-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .tip-card:hover .tip-img {
+            transform: scale(1.05);
+        }
+
+        .tip-info {
+            padding: 1.5rem;
+        }
+
+        .tip-category {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #1e5622;
+            padding: 0.2rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .tip-title {
+            font-size: 1.2rem;
+            color: #1e5622;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .tip-content {
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            background: transparent;
+            border: 2px solid #1e5622;
+            color: #1e5622;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .read-more:hover {
+            background: #1e5622;
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            max-width: 600px;
+            width: 90%;
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #1e5622;
+        }
+
+        .modal-close:hover {
+            color: #ff6b6b;
+        }
+
+        .modal-title {
+            color: #1e5622;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .back-home {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .back-btn {
+            background: #1e5622;
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #ffd966;
+            color: #1e5622;
+            transform: translateX(-5px);
+        }
+
+        footer {
+            background: #0f3a10;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links {
+                gap: 1rem;
+                justify-content: center;
+            }
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🌾 Agro<span>Star</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html" data-key="nav_home">मुख्यपृष्ठ</a></li>
+                <li><a href="seeds_products.html" data-key="nav_products">उत्पादने</a></li>
+                <li><a href="seeds_products.html" data-key="nav_seeds">बियाणे</a></li>
+                <li><a href="ferti_products.html" data-key="nav_fertilizers">जैविक खते</a></li>
+                <li><a href="chem_fer_products.html" data-key="nav_chemical">रासायनिक खते</a></li>
+                <li><a href="pestisides_products.html" data-key="nav_pesticides">कीटकनाशके</a></li>
+                <li><a href="tonics_products.html" data-key="nav_tonics">शेती टॉनिक</a></li>
+                <li><a href="equip_products.html" data-key="nav_equipment">शेती साहित्य</a></li>
+                <li><a href="tips.html" data-key="nav_tips">शेती टिप्स</a></li>
+                <li><a href="contact.html" data-key="nav_contact">संपर्क</a></li>
+                <li>
+                    <div class="lang-switch">
+                        <button class="lang-btn active" data-lang="mr">मराठी</button>
+                        <button class="lang-btn" data-lang="hi">हिंदी</button>
+                        <button class="lang-btn" data-lang="en">English</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <h1 data-key="page_title">📚 शेती टिप्स</h1>
+        <p data-key="page_subtitle">अनुभवी शेतकरी आणि कृषी तज्ज्ञांच्या सोप्या आणि उपयुक्त शेती टिप्स</p>
+    </div>
+
+    <div class="filter-section">
+        <div class="filter-bar" id="filterBar">
+            <button class="filter-btn active" data-filter="all" data-key="filter_all">सर्व टिप्स</button>
+            <button class="filter-btn" data-filter="soil" data-key="filter_soil">जमीन व्यवस्थापन</button>
+            <button class="filter-btn" data-filter="water" data-key="filter_water">सिंचन व्यवस्थापन</button>
+            <button class="filter-btn" data-filter="pest" data-key="filter_pest">कीड व्यवस्थापन</button>
+            <button class="filter-btn" data-filter="crop" data-key="filter_crop">पीक व्यवस्थापन</button>
+            <button class="filter-btn" data-filter="organic" data-key="filter_organic">सेंद्रिय शेती</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="tips-grid" id="tipsGrid"></div>
+        <div class="back-home">
+            <a href="index.html" class="back-btn" data-key="back_home">← मुख्यपृष्ठावर जा</a>
+        </div>
+    </div>
+
+    <div id="tipModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle" class="modal-title"></h3>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>🌾 <span data-key="footer_tagline">AgroStar - शेतकऱ्यांचा विश्वासू साथीदार</span> 🌾</p>
+        <p>© 2025 AgroStar | <span data-key="footer_rights">सर्व हक्क राखीव</span></p>
+    </footer>
+
+    <script>
+        // Complete Farming Tips Data - 20+ Tips in 3 Languages
+        const tipsData = {
+            mr: [
+                { id: 1, title: "जमिनीची सुपीकता कशी तपासावी?", category: "soil", shortDesc: "जमिनीची सुपीकता तपासण्याच्या सोप्या पद्धती", content: "जमिनीची सुपीकता तपासण्यासाठी प्रथम जमिनीचा नमुना घ्या. 6 इंच खोलीपासून जमिनीचा नमुना घेऊन कृषी विभागाच्या प्रयोगशाळेत पाठवा. जमिनीचा रंग, पोत आणि वास यावरूनही सुपीकतेचा अंदाज येतो. काळी जमीन सुपीक असते, तर लालसर जमीन थोडी कमी सुपीक असते.", image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400", badge: "important" },
+                { id: 2, title: "पाणी बचत करण्याचे उपाय", category: "water", shortDesc: "शेतीत पाणी बचत करण्याच्या आधुनिक पद्धती", content: "ड्रिप सिंचन आणि स्प्रिंकलर सिंचन पद्धतींमुळे 40-50% पाणी बचत होते. पिकांना योग्य वेळी पाणी द्या. सकाळी किंवा संध्याकाळी पाणी दिल्यास बाष्पीभवन कमी होते. तण नियंत्रण ठेवा, कारण तण पाणी शोषून घेतात.", image: "https://images.unsplash.com/photo-1533035350256-23b9f5dc3b33?w=400", badge: "seasonal" },
+                { id: 3, title: "नैसर्गिक कीटकनाशक तयार करा", category: "pest", shortDesc: "घरगुती वस्तूंपासून नैसर्गिक कीटकनाशक", content: "निंबोळी अर्क: 5 किलो निंबोळी 10 लिटर पाण्यात भिजत घाला. 24 तासानंतर गाळून 50 लिटर पाण्यात मिसळून फवारणी करा. लसूण-मिरची अर्क: 250 ग्रॅम लसूण, 250 ग्रॅम मिरची बारीक वाटून 10 लिटर पाण्यात मिसळा. गाळून फवारणी करा.", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+                { id: 4, title: "सेंद्रिय खत तयार करण्याची पद्धत", category: "organic", shortDesc: "घरगुती कचऱ्यापासून सेंद्रिय खत", content: "शेणखत, गांडूळ खत, नाडेप कंपोस्ट ही उत्तम सेंद्रिय खते आहेत. कंपोस्ट खतासाठी शेतातील कचरा, गवत, पालापाचोळा गोळा करून खड्ड्यात टाका. वेळोवेळी पाणी शिंपडा. 2-3 महिन्यांत चांगले कंपोस्ट खत तयार होते.", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+                { id: 5, title: "पीक फेरपालट का करावा?", category: "crop", shortDesc: "पीक फेरपालटीचे फायदे", content: "पीक फेरपालटीमुळे जमिनीतील पोषकद्रव्यांचा समतोल राखला जातो. एकाच पिकाची सलग लागवड केल्यास जमिनीतील विशिष्ट पोषकद्रव्ये संपतात. डाळींची पिके लावल्यास जमिनीत नत्राचे प्रमाण वाढते. त्यामुळे पुढील पिकासाठी जमीन सुपीक होते.", image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400", badge: "important" },
+                { id: 6, title: "वेळेवर पेरणीचे महत्त्व", category: "crop", shortDesc: "योग्य वेळी पेरणी केल्याने उत्पादनात वाढ", content: "प्रत्येक पिकासाठी योग्य पेरणीचा काळ असतो. खरीप पिके जून-जुलैमध्ये, रब्बी पिके ऑक्टोबर-नोव्हेंबरमध्ये पेरावीत. वेळेवर पेरणी केल्यास पिकांना योग्य तापमान, पाऊस आणि प्रकाश मिळतो. उशीरा पेरणी केल्यास उत्पादन 20-30% कमी होऊ शकते.", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400", badge: "seasonal" },
+                { id: 7, title: "तण नियंत्रणाच्या पद्धती", category: "soil", shortDesc: "तणांपासून पिकांचे संरक्षण", content: "तण पिकांचे पाणी, खत आणि प्रकाश हिरावून घेतात. तण नियंत्रणासाठी वेळेवर कोळपणी करा. पिकांच्या सुरुवातीच्या 30-40 दिवसांत तण नियंत्रण महत्त्वाचे असते. आंतरमशागतीमुळे तणांची वाढ रोखता येते. हाताने तण काढणे ही सोपी आणि प्रभावी पद्धत आहे.", image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400", badge: "" },
+                { id: 8, title: "सिंचनाचे योग्य नियोजन", category: "water", shortDesc: "पिकांनुसार योग्य सिंचन पद्धत", content: "प्रत्येक पिकाला वेगवेगळ्या प्रमाणात पाण्याची गरज असते. भाताला जास्त पाणी लागते, तर ज्वारी-बाजरीला कमी पाणी लागते. पिकांच्या वाढीच्या विविध अवस्थांनुसार पाण्याचे प्रमाण ठरवा. ड्रिप सिंचनामुळे 50% पाणी बचत होते.", image: "https://images.unsplash.com/photo-1533035350256-23b9f5dc3b33?w=400", badge: "" },
+                { id: 9, title: "जैविक कीटकनाशकांचा वापर", category: "organic", shortDesc: "पर्यावरणपूरक कीटकनाशके", content: "निंबोळी अर्क, आवळा अर्क, लसूण-मिरची अर्क ही प्रभावी जैविक कीटकनाशके आहेत. यामुळे पिके सुरक्षित राहतात, पर्यावरणाला हानी होत नाही. ही कीटकनाशके फायदेशीर किडींनाही हानी पोहोचवत नाहीत. नियमितपणे वापर केल्यास कीड नियंत्रणात राहते.", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+                { id: 10, title: "हवामान बदलाचा परिणाम", category: "crop", shortDesc: "बदलत्या हवामानाशी जुळवून घेण्याचे मार्ग", content: "हवामान बदलामुळे पिकांवर परिणाम होतो. दुष्काळ सहनशील वाणांची लागवड करा. पाऊस कमी असेल तर ठिबक सिंचनाचा वापर करा. हवामान अंदाजानुसार पेरणीचे नियोजन करा. वेळेवर कापणी करा.", image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400", badge: "important" },
+                { id: 11, title: "कंपोस्ट खत बनवण्याची पद्धत", category: "organic", shortDesc: "शेतातील कचऱ्यापासून उत्तम खत", content: "शेतातील पिकांचा कचरा, गवत, पालापाचोळा गोळा करा. 10x10x3 फुटाचा खड्डा खणून त्यात कचरा टाका. वेळोवेळी पाणी शिंपडा. 2-3 महिन्यांनी उत्तम कंपोस्ट खत तयार होते. या खतामुळे जमिनीची सुपीकता वाढते.", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+                { id: 12, title: "फळझाडांची छाटणी", category: "crop", shortDesc: "योग्य छाटणीमुळे फळांचे उत्पादन वाढते", content: "फळझाडांची छाटणी हिवाळ्यात (नोव्हेंबर-डिसेंबर) करावी. वाळलेल्या, रोगट फांद्या काढून टाका. आतील बाजूस वाढणाऱ्या फांद्याही काढा. यामुळे झाडाला योग्य प्रकाश आणि हवा मिळते. उत्पादनात 20-25% वाढ होते.", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400", badge: "seasonal" },
+                { id: 13, title: "जमिनीची धूप थांबवण्याचे उपाय", category: "soil", shortDesc: "जमिनीची धूप रोखण्याच्या पद्धती", content: "टेकडी उतारावर सोपान पद्धतीने शेती करावी. शेताच्या आजूबाजूला झाडे लावावीत. पिकांची आडवी लागवड करावी. शेतात हिरवळीची खते टाकावीत. यामुळे जमिनीची धूप कमी होते आणि जमीन सुपीक राहते.", image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400", badge: "important" },
+                { id: 14, title: "उशीरा पेरणीचे नुकसान", category: "crop", shortDesc: "वेळेवर पेरणी का महत्त्वाची", content: "उशीरा पेरणी केल्यास पिकांना योग्य तापमान, पाऊस आणि प्रकाश मिळत नाही. उत्पादन 30-40% कमी होऊ शकते. कीड आणि रोगांचा प्रादुर्भाव वाढतो. म्हणून प्रत्येक पिकाची पेरणी योग्य वेळेत करावी.", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400", badge: "" },
+                { id: 15, title: "गांडूळ खत बनवण्याची पद्धत", category: "organic", shortDesc: "घरी गांडूळ खत तयार करा", content: "गांडूळ खतासाठी छायेत मोठी टाकी ठेवा. टाकीत शेणखत, गवत, पालापाचोळा टाका. त्यात गांडुळे सोडा. नियमित पाणी शिंपडा. 2 महिन्यांत उत्तम गांडूळ खत तयार होते. हे खत जमिनीची सुपीकता वाढवते.", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+                { id: 16, title: "सेंद्रिय शेतीचे फायदे", category: "organic", shortDesc: "सेंद्रिय शेती का करावी?", content: "सेंद्रिय शेतीमुळे जमीन सुपीक राहते. पिके रोगमुक्त होतात. उत्पादनाची गुणवत्ता वाढते. बाजारभाव चांगला मिळतो. पर्यावरणाचे संरक्षण होते. शेतकरी आणि ग्राहक दोघांचे आरोग्य चांगले राहते.", image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400", badge: "important" },
+                { id: 17, title: "हिरवळीची खते", category: "soil", shortDesc: "हिरवळीच्या खतांचे महत्त्व", content: "ढैंचा, सनई, गवार ही उत्तम हिरवळीची खते आहेत. ही पिके 45-60 दिवसांत वाढवून जमिनीत गाडावीत. यामुळे जमिनीत सेंद्रिय खताचे प्रमाण वाढते. नत्राची उपलब्धता वाढते. जमिनीची रचना सुधारते.", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+                { id: 18, title: "मिश्र पीक पद्धती", category: "crop", shortDesc: "मिश्र पीक पद्धतीचे फायदे", content: "मिश्र पीक पद्धतीत एकाच शेतात दोन किंवा अधिक पिके घेतली जातात. ज्वारी-हरभरा, मका-उडीद हे चांगले मिश्र पीक आहेत. यामुळे एका पिकास कीड लागली तरी दुसरे पीक सुरक्षित राहते. उत्पन्नाचे स्रोत वाढतात.", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400", badge: "" },
+                { id: 19, title: "पिकांची आंतरमशागत", category: "soil", shortDesc: "आंतरमशागतीचे महत्त्व", content: "आंतरमशागतीमुळे जमिनीत हवा खेळती होते. तणांची वाढ रोखली जाते. पिकांना योग्य प्रमाणात पाणी आणि खत मिळते. 15-20 दिवसांच्या अंतराने आंतरमशागत करावी. यामुळे उत्पादनात 15-20% वाढ होते.", image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400", badge: "" },
+                { id: 20, title: "हिवाळी पिकांची काळजी", category: "crop", shortDesc: "हिवाळ्यात पिकांची कशी काळजी घ्यावी", content: "हिवाळ्यात दव पडते. दवामुळे पिकांवर बुरशीजन्य रोग होऊ शकतात. सकाळी पिकांवरील दव झटकून टाकावे. योग्य वेळेत बुरशीनाशकांची फवारणी करावी. पिकांना योग्य प्रमाणात पाणी द्यावे.", image: "https://images.unsplash.com/photo-1533035350256-23b9f5dc3b33?w=400", badge: "seasonal" },
+                { id: 21, title: "गव्हाची लागवड", category: "crop", shortDesc: "गव्हाच्या लागवडीची योग्य पद्धत", content: "गव्हाची लागवड ऑक्टोबर-नोव्हेंबरमध्ये करावी. दर एकरी 40-50 किलो बियाणे लागते. बियाण्यावर बुरशीनाशक प्रक्रिया करावी. 6x6 इंच अंतरावर लागवड करावी. वेळेवर पाणी द्यावे. 100-120 दिवसांत पीक तयार होते.", image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400", badge: "" },
+                { id: 22, title: "भाताची लागवड", category: "crop", shortDesc: "भात लागवडीची योग्य पद्धत", content: "भाताची लागवड जून-जुलैमध्ये करावी. रोपांची लागवड 6x6 इंच अंतरावर करावी. शेतात सतत 2-3 इंच पाणी राहील अशी व्यवस्था करावी. वेळेवर नत्र खतांची मात्रा द्यावी. 120-140 दिवसांत पीक तयार होते.", image: "https://images.unsplash.com/photo-1586201375761-83865001e8ac?w=400", badge: "" }
+            ],
+            hi: [ { id: 1, title: "मिट्टी की उर्वरता कैसे जांचें?", category: "soil", shortDesc: "मिट्टी की उर्वरता जांचने की सरल विधियां", content: "मिट्टी की उर्वरता जांचने के लिए सबसे पहले मिट्टी का नमूना लें। 6 इंच गहराई से मिट्टी का नमूना लेकर कृषि विभाग की प्रयोगशाला में भेजें। मिट्टी का रंग, बनावट और गंध से भी उर्वरता का अनुमान लगाया जा सकता है। काली मिट्टी उपजाऊ होती है, जबकि लाल रंग की मिट्टी कम उपजाऊ होती है।", image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400", badge: "important" },
+    { id: 2, title: "पानी बचाने के उपाय", category: "water", shortDesc: "खेती में पानी बचाने की आधुनिक विधियां", content: "ड्रिप सिंचाई और स्प्रिंकलर सिंचाई विधियों से 40-50% पानी की बचत होती है। फसलों को सही समय पर पानी दें। सुबह या शाम को पानी देने से वाष्पीकरण कम होता है। खरपतवार नियंत्रण रखें, क्योंकि खरपतवार पानी सोख लेते हैं।", image: "https://images.unsplash.com/photo-1533035350256-23b9f5dc3b33?w=400", badge: "seasonal" },
+    { id: 3, title: "प्राकृतिक कीटनाशक बनाएं", category: "pest", shortDesc: "घरेलू वस्तुओं से प्राकृतिक कीटनाशक", content: "नीम का अर्क: 5 किलो नीम की गिरी को 10 लीटर पानी में भिगो दें। 24 घंटे बाद छानकर 50 लीटर पानी में मिलाकर छिड़काव करें। लहसुन-मिर्च का अर्क: 250 ग्राम लहसुन, 250 ग्राम मिर्च को बारीक पीसकर 10 लीटर पानी में मिलाएं। छानकर छिड़काव करें।", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+    { id: 4, title: "जैविक खाद बनाने की विधि", category: "organic", shortDesc: "घरेलू कचरे से जैविक खाद", content: "गोबर खाद, केंचुआ खाद, नाडेप कंपोस्ट उत्तम जैविक खाद हैं। कंपोस्ट खाद के लिए खेत का कचरा, घास, पत्तियां इकट्ठा करके गड्ढे में डालें। समय-समय पर पानी छिड़कें। 2-3 महीनों में अच्छी कंपोस्ट खाद तैयार हो जाती है।", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+    { id: 5, title: "फसल चक्र क्यों करें?", category: "crop", shortDesc: "फसल चक्र के फायदे", content: "फसल चक्र से मिट्टी में पोषक तत्वों का संतुलन बना रहता है। एक ही फसल की लगातार खेती करने से मिट्टी में विशिष्ट पोषक तत्व समाप्त हो जाते हैं। दलहनी फसलें लगाने से मिट्टी में नाइट्रोजन की मात्रा बढ़ती है। जिससे अगली फसल के लिए मिट्टी उपजाऊ हो जाती है।", image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400", badge: "important" },
+    { id: 6, title: "समय पर बुवाई का महत्व", category: "crop", shortDesc: "सही समय पर बुवाई से उत्पादन बढ़ता है", content: "प्रत्येक फसल के लिए सही बुवाई का समय होता है। खरीफ फसलें जून-जुलाई में, रबी फसलें अक्टूबर-नवंबर में बोनी चाहिए। समय पर बुवाई करने से फसलों को सही तापमान, बारिश और प्रकाश मिलता है। देरी से बुवाई करने पर उत्पादन 20-30% कम हो सकता है।", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400", badge: "seasonal" },
+    { id: 7, title: "खरपतवार नियंत्रण की विधियां", category: "soil", shortDesc: "खरपतवारों से फसलों की सुरक्षा", content: "खरपतवार फसलों का पानी, खाद और प्रकाश छीन लेते हैं। खरपतवार नियंत्रण के लिए समय पर गुड़ाई करें। फसलों के शुरुआती 30-40 दिनों में खरपतवार नियंत्रण महत्वपूर्ण होता है। अंतर-क्रिया से खरपतवारों की वृद्धि रोकी जा सकती है। हाथ से खरपतवार निकालना सरल और प्रभावी तरीका है।", image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400", badge: "" },
+    { id: 8, title: "सिंचाई की सही योजना", category: "water", shortDesc: "फसलों के अनुसार सही सिंचाई विधि", content: "प्रत्येक फसल को अलग-अलग मात्रा में पानी की आवश्यकता होती है। धान को अधिक पानी चाहिए, जबकि ज्वार-बाजरा को कम पानी चाहिए। फसलों की वृद्धि की विभिन्न अवस्थाओं के अनुसार पानी की मात्रा निर्धारित करें। ड्रिप सिंचाई से 50% पानी की बचत होती है।", image: "https://images.unsplash.com/photo-1533035350256-23b9f5dc3b33?w=400", badge: "" },
+    { id: 9, title: "जैविक कीटनाशकों का उपयोग", category: "organic", shortDesc: "पर्यावरण अनुकूल कीटनाशक", content: "नीम का अर्क, आंवला अर्क, लहसुन-मिर्च का अर्क प्रभावी जैविक कीटनाशक हैं। इससे फसलें सुरक्षित रहती हैं, पर्यावरण को नुकसान नहीं होता। ये कीटनाशक लाभकारी कीटों को भी नुकसान नहीं पहुंचाते। नियमित उपयोग से कीट नियंत्रण में रहते हैं।", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+    { id: 10, title: "जलवायु परिवर्तन का प्रभाव", category: "crop", shortDesc: "बदलते मौसम से तालमेल बिठाने के तरीके", content: "जलवायु परिवर्तन से फसलों पर प्रभाव पड़ता है। सूखा सहनशील किस्मों की खेती करें। बारिश कम हो तो ड्रिप सिंचाई का उपयोग करें। मौसम पूर्वानुमान के अनुसार बुवाई की योजना बनाएं। समय पर कटाई करें।", image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400", badge: "important" },
+    { id: 11, title: "कंपोस्ट खाद बनाने की विधि", category: "organic", shortDesc: "खेत के कचरे से उत्तम खाद", content: "खेत में फसलों का कचरा, घास, पत्तियां इकट्ठा करें। 10x10x3 फुट का गड्ढा खोदकर उसमें कचरा डालें। समय-समय पर पानी छिड़कें। 2-3 महीनों में उत्तम कंपोस्ट खाद तैयार हो जाती है। इस खाद से मिट्टी की उर्वरता बढ़ती है।", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+    { id: 12, title: "फलों के पेड़ों की छंटाई", category: "crop", shortDesc: "सही छंटाई से फलों का उत्पादन बढ़ता है", content: "फलों के पेड़ों की छंटाई सर्दियों में (नवंबर-दिसंबर) करनी चाहिए। सूखी, रोगग्रस्त शाखाओं को हटा दें। अंदर की ओर बढ़ने वाली शाखाओं को भी हटाएं। इससे पेड़ को सही प्रकाश और हवा मिलती है। उत्पादन में 20-25% की वृद्धि होती है।", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400", badge: "seasonal" },
+    { id: 13, title: "मिट्टी का कटाव रोकने के उपाय", category: "soil", shortDesc: "मिट्टी के कटाव को रोकने की विधियां", content: "पहाड़ी ढलानों पर सीढ़ीदार खेती करें। खेत के चारों ओर पेड़ लगाएं। फसलों की आड़ी बुवाई करें। खेत में हरी खाद डालें। इससे मिट्टी का कटाव कम होता है और मिट्टी उपजाऊ बनी रहती है।", image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400", badge: "important" },
+    { id: 14, title: "देर से बुवाई का नुकसान", category: "crop", shortDesc: "समय पर बुवाई क्यों महत्वपूर्ण है", content: "देर से बुवाई करने पर फसलों को सही तापमान, बारिश और प्रकाश नहीं मिल पाता। उत्पादन 30-40% कम हो सकता है। कीट और रोगों का प्रकोप बढ़ जाता है। इसलिए प्रत्येक फसल की बुवाई सही समय पर करनी चाहिए।", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400", badge: "" },
+    { id: 15, title: "केंचुआ खाद बनाने की विधि", category: "organic", shortDesc: "घर पर केंचुआ खाद बनाएं", content: "केंचुआ खाद के लिए छाया में बड़ा टैंक रखें। टैंक में गोबर, घास, पत्तियां डालें। उसमें केंचुए डालें। नियमित पानी छिड़कें। 2 महीनों में उत्तम केंचुआ खाद तैयार हो जाती है। यह खाद मिट्टी की उर्वरता बढ़ाती है।", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+    { id: 16, title: "जैविक खेती के फायदे", category: "organic", shortDesc: "जैविक खेती क्यों करें?", content: "जैविक खेती से मिट्टी उपजाऊ बनी रहती है। फसलें रोगमुक्त होती हैं। उत्पादन की गुणवत्ता बढ़ती है। बाजार भाव अच्छा मिलता है। पर्यावरण का संरक्षण होता है। किसान और उपभोक्ता दोनों का स्वास्थ्य अच्छा रहता है।", image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400", badge: "important" },
+    { id: 17, title: "हरी खाद", category: "soil", shortDesc: "हरी खाद का महत्व", content: "ढैंचा, सनई, ग्वार उत्तम हरी खाद हैं। इन फसलों को 45-60 दिनों में उगाकर मिट्टी में दबा दें। इससे मिट्टी में जैविक खाद की मात्रा बढ़ती है। नाइट्रोजन की उपलब्धता बढ़ती है। मिट्टी की संरचना सुधरती है।", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+    { id: 18, title: "मिश्रित फसल पद्धति", category: "crop", shortDesc: "मिश्रित फसल पद्धति के फायदे", content: "मिश्रित फसल पद्धति में एक ही खेत में दो या अधिक फसलें उगाई जाती हैं। ज्वार-चना, मक्का-उड़द अच्छी मिश्रित फसलें हैं। इससे एक फसल में कीट लगने पर भी दूसरी फसल सुरक्षित रहती है। आय के स्रोत बढ़ते हैं।", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400", badge: "" },
+    { id: 19, title: "फसलों की अंतर-क्रिया", category: "soil", shortDesc: "अंतर-क्रिया का महत्व", content: "अंतर-क्रिया से मिट्टी में हवा का संचार होता है। खरपतवारों की वृद्धि रोकी जाती है। फसलों को सही मात्रा में पानी और खाद मिलता है। 15-20 दिनों के अंतराल पर अंतर-क्रिया करनी चाहिए। इससे उत्पादन में 15-20% की वृद्धि होती है।", image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400", badge: "" },
+    { id: 20, title: "सर्दियों में फसलों की देखभाल", category: "crop", shortDesc: "सर्दियों में फसलों की कैसे देखभाल करें", content: "सर्दियों में ओस पड़ती है। ओस से फसलों पर फफूंद जनित रोग हो सकते हैं। सुबह फसलों पर से ओस हटा दें। सही समय पर फफूंदनाशकों का छिड़काव करें। फसलों को सही मात्रा में पानी दें।", image: "https://images.unsplash.com/photo-1533035350256-23b9f5dc3b33?w=400", badge: "seasonal" },
+    { id: 21, title: "गेहूं की खेती", category: "crop", shortDesc: "गेहूं की खेती की सही विधि", content: "गेहूं की बुवाई अक्टूबर-नवंबर में करें। प्रति एकड़ 40-50 किलो बीज लगता है। बीज पर फफूंदनाशक प्रक्रिया करें। 6x6 इंच की दूरी पर बुवाई करें। समय पर पानी दें। 100-120 दिनों में फसल तैयार हो जाती है।", image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400", badge: "" },
+    { id: 22, title: "धान की खेती", category: "crop", shortDesc: "धान की खेती की सही विधि", content: "धान की बुवाई जून-जुलाई में करें। पौधों को 6x6 इंच की दूरी पर लगाएं। खेत में लगातार 2-3 इंच पानी रहे ऐसी व्यवस्था करें। समय पर नाइट्रोजन खाद की मात्रा दें। 120-140 दिनों में फसल तैयार हो जाती है।", image: "https://images.unsplash.com/photo-1586201375761-83865001e8ac?w=400", badge: "" }],  // Hindi translations would go here - similar structure
+            en: [ { id: 1, title: "मिट्टी की उर्वरता कैसे जांचें?", category: "soil", shortDesc: "मिट्टी की उर्वरता जांचने की सरल विधियां", content: "मिट्टी की उर्वरता जांचने के लिए सबसे पहले मिट्टी का नमूना लें। 6 इंच गहराई से मिट्टी का नमूना लेकर कृषि विभाग की प्रयोगशाला में भेजें। मिट्टी का रंग, बनावट और गंध से भी उर्वरता का अनुमान लगाया जा सकता है। काली मिट्टी उपजाऊ होती है, जबकि लाल रंग की मिट्टी कम उपजाऊ होती है।", image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400", badge: "important" },
+    { id: 2, title: "पानी बचाने के उपाय", category: "water", shortDesc: "खेती में पानी बचाने की आधुनिक विधियां", content: "ड्रिप सिंचाई और स्प्रिंकलर सिंचाई विधियों से 40-50% पानी की बचत होती है। फसलों को सही समय पर पानी दें। सुबह या शाम को पानी देने से वाष्पीकरण कम होता है। खरपतवार नियंत्रण रखें, क्योंकि खरपतवार पानी सोख लेते हैं।", image: "https://images.unsplash.com/photo-1533035350256-23b9f5dc3b33?w=400", badge: "seasonal" },
+    { id: 3, title: "प्राकृतिक कीटनाशक बनाएं", category: "pest", shortDesc: "घरेलू वस्तुओं से प्राकृतिक कीटनाशक", content: "नीम का अर्क: 5 किलो नीम की गिरी को 10 लीटर पानी में भिगो दें। 24 घंटे बाद छानकर 50 लीटर पानी में मिलाकर छिड़काव करें। लहसुन-मिर्च का अर्क: 250 ग्राम लहसुन, 250 ग्राम मिर्च को बारीक पीसकर 10 लीटर पानी में मिलाएं। छानकर छिड़काव करें।", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+    { id: 4, title: "जैविक खाद बनाने की विधि", category: "organic", shortDesc: "घरेलू कचरे से जैविक खाद", content: "गोबर खाद, केंचुआ खाद, नाडेप कंपोस्ट उत्तम जैविक खाद हैं। कंपोस्ट खाद के लिए खेत का कचरा, घास, पत्तियां इकट्ठा करके गड्ढे में डालें। समय-समय पर पानी छिड़कें। 2-3 महीनों में अच्छी कंपोस्ट खाद तैयार हो जाती है।", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+    { id: 5, title: "फसल चक्र क्यों करें?", category: "crop", shortDesc: "फसल चक्र के फायदे", content: "फसल चक्र से मिट्टी में पोषक तत्वों का संतुलन बना रहता है। एक ही फसल की लगातार खेती करने से मिट्टी में विशिष्ट पोषक तत्व समाप्त हो जाते हैं। दलहनी फसलें लगाने से मिट्टी में नाइट्रोजन की मात्रा बढ़ती है। जिससे अगली फसल के लिए मिट्टी उपजाऊ हो जाती है।", image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400", badge: "important" },
+    { id: 6, title: "समय पर बुवाई का महत्व", category: "crop", shortDesc: "सही समय पर बुवाई से उत्पादन बढ़ता है", content: "प्रत्येक फसल के लिए सही बुवाई का समय होता है। खरीफ फसलें जून-जुलाई में, रबी फसलें अक्टूबर-नवंबर में बोनी चाहिए। समय पर बुवाई करने से फसलों को सही तापमान, बारिश और प्रकाश मिलता है। देरी से बुवाई करने पर उत्पादन 20-30% कम हो सकता है।", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400", badge: "seasonal" },
+    { id: 7, title: "खरपतवार नियंत्रण की विधियां", category: "soil", shortDesc: "खरपतवारों से फसलों की सुरक्षा", content: "खरपतवार फसलों का पानी, खाद और प्रकाश छीन लेते हैं। खरपतवार नियंत्रण के लिए समय पर गुड़ाई करें। फसलों के शुरुआती 30-40 दिनों में खरपतवार नियंत्रण महत्वपूर्ण होता है। अंतर-क्रिया से खरपतवारों की वृद्धि रोकी जा सकती है। हाथ से खरपतवार निकालना सरल और प्रभावी तरीका है।", image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400", badge: "" },
+    { id: 8, title: "सिंचाई की सही योजना", category: "water", shortDesc: "फसलों के अनुसार सही सिंचाई विधि", content: "प्रत्येक फसल को अलग-अलग मात्रा में पानी की आवश्यकता होती है। धान को अधिक पानी चाहिए, जबकि ज्वार-बाजरा को कम पानी चाहिए। फसलों की वृद्धि की विभिन्न अवस्थाओं के अनुसार पानी की मात्रा निर्धारित करें। ड्रिप सिंचाई से 50% पानी की बचत होती है।", image: "https://images.unsplash.com/photo-1533035350256-23b9f5dc3b33?w=400", badge: "" },
+    { id: 9, title: "जैविक कीटनाशकों का उपयोग", category: "organic", shortDesc: "पर्यावरण अनुकूल कीटनाशक", content: "नीम का अर्क, आंवला अर्क, लहसुन-मिर्च का अर्क प्रभावी जैविक कीटनाशक हैं। इससे फसलें सुरक्षित रहती हैं, पर्यावरण को नुकसान नहीं होता। ये कीटनाशक लाभकारी कीटों को भी नुकसान नहीं पहुंचाते। नियमित उपयोग से कीट नियंत्रण में रहते हैं।", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+    { id: 10, title: "जलवायु परिवर्तन का प्रभाव", category: "crop", shortDesc: "बदलते मौसम से तालमेल बिठाने के तरीके", content: "जलवायु परिवर्तन से फसलों पर प्रभाव पड़ता है। सूखा सहनशील किस्मों की खेती करें। बारिश कम हो तो ड्रिप सिंचाई का उपयोग करें। मौसम पूर्वानुमान के अनुसार बुवाई की योजना बनाएं। समय पर कटाई करें।", image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400", badge: "important" },
+    { id: 11, title: "कंपोस्ट खाद बनाने की विधि", category: "organic", shortDesc: "खेत के कचरे से उत्तम खाद", content: "खेत में फसलों का कचरा, घास, पत्तियां इकट्ठा करें। 10x10x3 फुट का गड्ढा खोदकर उसमें कचरा डालें। समय-समय पर पानी छिड़कें। 2-3 महीनों में उत्तम कंपोस्ट खाद तैयार हो जाती है। इस खाद से मिट्टी की उर्वरता बढ़ती है।", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+    { id: 12, title: "फलों के पेड़ों की छंटाई", category: "crop", shortDesc: "सही छंटाई से फलों का उत्पादन बढ़ता है", content: "फलों के पेड़ों की छंटाई सर्दियों में (नवंबर-दिसंबर) करनी चाहिए। सूखी, रोगग्रस्त शाखाओं को हटा दें। अंदर की ओर बढ़ने वाली शाखाओं को भी हटाएं। इससे पेड़ को सही प्रकाश और हवा मिलती है। उत्पादन में 20-25% की वृद्धि होती है।", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400", badge: "seasonal" },
+    { id: 13, title: "मिट्टी का कटाव रोकने के उपाय", category: "soil", shortDesc: "मिट्टी के कटाव को रोकने की विधियां", content: "पहाड़ी ढलानों पर सीढ़ीदार खेती करें। खेत के चारों ओर पेड़ लगाएं। फसलों की आड़ी बुवाई करें। खेत में हरी खाद डालें। इससे मिट्टी का कटाव कम होता है और मिट्टी उपजाऊ बनी रहती है।", image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400", badge: "important" },
+    { id: 14, title: "देर से बुवाई का नुकसान", category: "crop", shortDesc: "समय पर बुवाई क्यों महत्वपूर्ण है", content: "देर से बुवाई करने पर फसलों को सही तापमान, बारिश और प्रकाश नहीं मिल पाता। उत्पादन 30-40% कम हो सकता है। कीट और रोगों का प्रकोप बढ़ जाता है। इसलिए प्रत्येक फसल की बुवाई सही समय पर करनी चाहिए।", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400", badge: "" },
+    { id: 15, title: "केंचुआ खाद बनाने की विधि", category: "organic", shortDesc: "घर पर केंचुआ खाद बनाएं", content: "केंचुआ खाद के लिए छाया में बड़ा टैंक रखें। टैंक में गोबर, घास, पत्तियां डालें। उसमें केंचुए डालें। नियमित पानी छिड़कें। 2 महीनों में उत्तम केंचुआ खाद तैयार हो जाती है। यह खाद मिट्टी की उर्वरता बढ़ाती है।", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+    { id: 16, title: "जैविक खेती के फायदे", category: "organic", shortDesc: "जैविक खेती क्यों करें?", content: "जैविक खेती से मिट्टी उपजाऊ बनी रहती है। फसलें रोगमुक्त होती हैं। उत्पादन की गुणवत्ता बढ़ती है। बाजार भाव अच्छा मिलता है। पर्यावरण का संरक्षण होता है। किसान और उपभोक्ता दोनों का स्वास्थ्य अच्छा रहता है।", image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400", badge: "important" },
+    { id: 17, title: "हरी खाद", category: "soil", shortDesc: "हरी खाद का महत्व", content: "ढैंचा, सनई, ग्वार उत्तम हरी खाद हैं। इन फसलों को 45-60 दिनों में उगाकर मिट्टी में दबा दें। इससे मिट्टी में जैविक खाद की मात्रा बढ़ती है। नाइट्रोजन की उपलब्धता बढ़ती है। मिट्टी की संरचना सुधरती है।", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400", badge: "" },
+    { id: 18, title: "मिश्रित फसल पद्धति", category: "crop", shortDesc: "मिश्रित फसल पद्धति के फायदे", content: "मिश्रित फसल पद्धति में एक ही खेत में दो या अधिक फसलें उगाई जाती हैं। ज्वार-चना, मक्का-उड़द अच्छी मिश्रित फसलें हैं। इससे एक फसल में कीट लगने पर भी दूसरी फसल सुरक्षित रहती है। आय के स्रोत बढ़ते हैं।", image: "https://images.unsplash.com/photo-1592982537447-6f2a6a0c7c18?w=400", badge: "" },
+    { id: 19, title: "फसलों की अंतर-क्रिया", category: "soil", shortDesc: "अंतर-क्रिया का महत्व", content: "अंतर-क्रिया से मिट्टी में हवा का संचार होता है। खरपतवारों की वृद्धि रोकी जाती है। फसलों को सही मात्रा में पानी और खाद मिलता है। 15-20 दिनों के अंतराल पर अंतर-क्रिया करनी चाहिए। इससे उत्पादन में 15-20% की वृद्धि होती है।", image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400", badge: "" },
+    { id: 20, title: "सर्दियों में फसलों की देखभाल", category: "crop", shortDesc: "सर्दियों में फसलों की कैसे देखभाल करें", content: "सर्दियों में ओस पड़ती है। ओस से फसलों पर फफूंद जनित रोग हो सकते हैं। सुबह फसलों पर से ओस हटा दें। सही समय पर फफूंदनाशकों का छिड़काव करें। फसलों को सही मात्रा में पानी दें।", image: "https://images.unsplash.com/photo-1533035350256-23b9f5dc3b33?w=400", badge: "seasonal" },
+    { id: 21, title: "गेहूं की खेती", category: "crop", shortDesc: "गेहूं की खेती की सही विधि", content: "गेहूं की बुवाई अक्टूबर-नवंबर में करें। प्रति एकड़ 40-50 किलो बीज लगता है। बीज पर फफूंदनाशक प्रक्रिया करें। 6x6 इंच की दूरी पर बुवाई करें। समय पर पानी दें। 100-120 दिनों में फसल तैयार हो जाती है।", image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400", badge: "" },
+    { id: 22, title: "धान की खेती", category: "crop", shortDesc: "धान की खेती की सही विधि", content: "धान की बुवाई जून-जुलाई में करें। पौधों को 6x6 इंच की दूरी पर लगाएं। खेत में लगातार 2-3 इंच पानी रहे ऐसी व्यवस्था करें। समय पर नाइट्रोजन खाद की मात्रा दें। 120-140 दिनों में फसल तैयार हो जाती है।", image: "https://images.unsplash.com/photo-1586201375761-83865001e8ac?w=400", badge: "" }]   // English translations would go here - similar structure
+        };
+
+        const translations = {
+            mr: {
+                nav_home: "मुख्यपृष्ठ",
+                nav_products: "उत्पादने",
+                nav_seeds: "बियाणे",
+                nav_fertilizers: "जैविक खते",
+                nav_chemical: "रासायनिक खते",
+                nav_pesticides: "कीटकनाशके",
+                nav_tonics: "शेती टॉनिक",
+                nav_equipment: "शेती साहित्य",
+                nav_tips: "शेती टिप्स",
+                nav_contact: "संपर्क",
+                page_title: "📚 शेती टिप्स",
+                page_subtitle: "अनुभवी शेतकरी आणि कृषी तज्ज्ञांच्या सोप्या आणि उपयुक्त शेती टिप्स",
+                filter_all: "सर्व टिप्स",
+                filter_soil: "जमीन व्यवस्थापन",
+                filter_water: "सिंचन व्यवस्थापन",
+                filter_pest: "कीड व्यवस्थापन",
+                filter_crop: "पीक व्यवस्थापन",
+                filter_organic: "सेंद्रिय शेती",
+                back_home: "← मुख्यपृष्ठावर जा",
+                footer_tagline: "AgroStar - शेतकऱ्यांचा विश्वासू साथीदार",
+                footer_rights: "सर्व हक्क राखीव",
+                read_more: "पूर्ण वाचा →"
+            },
+            hi: {
+                nav_home: "मुख्यपृष्ठ",
+                nav_products: "उत्पाद",
+                nav_seeds: "बीज",
+                nav_fertilizers: "जैविक खाद",
+                nav_chemical: "रासायनिक खाद",
+                nav_pesticides: "कीटनाशक",
+                nav_tonics: "कृषि टॉनिक",
+                nav_equipment: "कृषि उपकरण",
+                nav_tips: "कृषि टिप्स",
+                nav_contact: "संपर्क",
+                page_title: "📚 कृषि टिप्स",
+                page_subtitle: "अनुभवी किसानों और कृषि विशेषज्ञों की सरल और उपयोगी कृषि टिप्स",
+                filter_all: "सभी टिप्स",
+                filter_soil: "मिट्टी प्रबंधन",
+                filter_water: "सिंचाई प्रबंधन",
+                filter_pest: "कीट प्रबंधन",
+                filter_crop: "फसल प्रबंधन",
+                filter_organic: "जैविक खेती",
+                back_home: "← मुख्यपृष्ठ पर जाएं",
+                footer_tagline: "AgroStar - किसानों का विश्वसनीय साथी",
+                footer_rights: "सभी अधिकार सुरक्षित",
+                read_more: "पूरा पढ़ें →"
+            },
+            en: {
+                nav_home: "Home",
+                nav_products: "Products",
+                nav_seeds: "Seeds",
+                nav_fertilizers: "Organic Fertilizers",
+                nav_chemical: "Chemical Fertilizers",
+                nav_pesticides: "Pesticides",
+                nav_tonics: "Agro Tonics",
+                nav_equipment: "Farm Equipment",
+                nav_tips: "Farming Tips",
+                nav_contact: "Contact",
+                page_title: "📚 Farming Tips",
+                page_subtitle: "Simple and useful farming tips from experienced farmers and agriculture experts",
+                filter_all: "All Tips",
+                filter_soil: "Soil Management",
+                filter_water: "Irrigation Management",
+                filter_pest: "Pest Management",
+                filter_crop: "Crop Management",
+                filter_organic: "Organic Farming",
+                back_home: "← Back to Home",
+                footer_tagline: "AgroStar - Farmer's Trusted Partner",
+                footer_rights: "All Rights Reserved",
+                read_more: "Read More →"
+            }
+        };
+
+        let currentLang = 'mr';
+        let currentFilter = 'all';
+
+        function getBadgeClass(badge) {
+            if (badge === 'important') return 'important';
+            if (badge === 'seasonal') return 'seasonal';
+            return '';
+        }
+
+        function getBadgeText(badge, lang) {
+            const texts = {
+                mr: { important: "महत्त्वाचे", seasonal: "हंगामी" },
+                hi: { important: "महत्वपूर्ण", seasonal: "मौसमी" },
+                en: { important: "Important", seasonal: "Seasonal" }
+            };
+            if (badge === 'important') return texts[lang].important;
+            if (badge === 'seasonal') return texts[lang].seasonal;
+            return '';
+        }
+
+        function getCategoryName(category, lang) {
+            const names = {
+                mr: { soil: "जमीन व्यवस्थापन", water: "सिंचन व्यवस्थापन", pest: "कीड व्यवस्थापन", crop: "पीक व्यवस्थापन", organic: "सेंद्रिय शेती" },
+                hi: { soil: "मिट्टी प्रबंधन", water: "सिंचाई प्रबंधन", pest: "कीट प्रबंधन", crop: "फसल प्रबंधन", organic: "जैविक खेती" },
+                en: { soil: "Soil Management", water: "Irrigation Management", pest: "Pest Management", crop: "Crop Management", organic: "Organic Farming" }
+            };
+            return names[lang][category] || category;
+        }
+
+        function openModal(id) {
+            const tips = tipsData[currentLang];
+            const tip = tips.find(t => t.id === id);
+            if (tip) {
+                document.getElementById('modalTitle').textContent = tip.title;
+                document.getElementById('modalContent').innerHTML = `<p>${tip.content}</p>`;
+                document.getElementById('tipModal').style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('tipModal').style.display = 'none';
+        }
+
+        function renderTips() {
+            const tips = tipsData[currentLang];
+            if (!tips || tips.length === 0) {
+                document.getElementById('tipsGrid').innerHTML = '<div style="text-align:center; padding:3rem;">कोणतीही टिप्स सापडली नाहीत / No tips found</div>';
+                return;
+            }
+            
+            const filtered = currentFilter === 'all' ? tips : tips.filter(t => t.category === currentFilter);
+            const grid = document.getElementById('tipsGrid');
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div style="text-align:center; padding:3rem;">या श्रेणीत कोणतीही टिप्स नाहीत / No tips in this category</div>';
+                return;
+            }
+            
+            grid.innerHTML = filtered.map(tip => `
+                <div class="tip-card">
+                    ${tip.badge ? `<div class="tip-badge ${getBadgeClass(tip.badge)}">${getBadgeText(tip.badge, currentLang)}</div>` : ''}
+                    <img class="tip-img" src="${tip.image}" alt="${tip.title}" onerror="this.src='https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400'">
+                    <div class="tip-info">
+                        <span class="tip-category">${getCategoryName(tip.category, currentLang)}</span>
+                        <h3 class="tip-title">${tip.title}</h3>
+                        <p class="tip-content">${tip.shortDesc}</p>
+                        <button class="read-more" onclick="openModal(${tip.id})">${translations[currentLang].read_more}</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateLanguage(lang) {
+            currentLang = lang;
+            
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                const key = btn.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    btn.textContent = translations[lang][key];
+                }
+            });
+            
+            renderTips();
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) btn.classList.add('active');
+            });
+            
+            localStorage.setItem('preferred_language', lang);
+        }
+
+        // Event Listeners
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => updateLanguage(btn.getAttribute('data-lang')));
+        });
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.getAttribute('data-filter');
+                renderTips();
+            });
+        });
+        
+        const savedLang = localStorage.getItem('preferred_language') || 'mr';
+        updateLanguage(savedLang);
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('tipModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

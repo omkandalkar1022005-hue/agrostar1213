@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroStar | शेतकऱ्यांचा विश्वासू साथीदार</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Poppins', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #1e3a1f;
+            background: #fef9e6;
+        }
+
+        header {
+            background: #1e5622;
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #ffd966;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffd966;
+        }
+
+        /* Language Switcher Styles */
+        .lang-switch {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #ffd966;
+            color: #ffd966;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: #ffd966;
+            color: #1e5622;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('bg.jpg');
+         
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: rgb(12, 17, 1);
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            background: #ffd966;
+            color: #1e5622;
+            padding: 0.8rem 1.8rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #ffcd38;
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 2rem 0 1rem;
+            font-size: 2rem;
+            color: #1e5622;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: #ffd966;
+            margin: 0.5rem auto;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            text-align: center;
+            padding-bottom: 1rem;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .product-card h3 {
+            padding: 1rem 1rem 0;
+            color: #1e5622;
+        }
+
+        .product-card p {
+            padding: 0.5rem 1rem;
+            color: #555;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+                        align-content: center;
+
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .feature {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .feature h3 {
+            color: #1e5622;
+            margin-top: 1rem;
+        }/* Explore More Button Styles */
+.explore-more-container {
+    text-align: center;
+    margin: 1rem 0 2rem;
+}
+
+.explore-btn {
+    background: linear-gradient(135deg, #1e5622, #2a7a2f);
+    color: white;
+    padding: 0.8rem 2rem;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+}
+
+.explore-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(30,86,34,0.4);
+    background: linear-gradient(135deg, #2a7a2f, #1e5622);
+}
+
+        footer {
+            background: #0f3a10;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .lang-switch {
+                margin-left: 0;
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🌾 Agro<span>Star</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html" data-key="nav_home">मुख्यपृष्ठ</a></li>
+                <li><a href="seeds_products.html" data-key="nav_products">उत्पादने</a></li>
+                <li><a href="tips.html" data-key="nav_tips">शेती टिप्स</a></li>
+                <li><a href="about.html" data-key="nav_about">आमच्याबद्दल</a></li>
+                <li><a href="contact.html" data-key="nav_contact">संपर्क</a></li>
+                <li>
+                    <div class="lang-switch">
+                        <button class="lang-btn active" data-lang="mr">मराठी</button>
+                        <button class="lang-btn" data-lang="hi">हिंदी</button>
+                        <button class="lang-btn" data-lang="en">English</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>AgroStar</h1>
+            <p data-key="hero_tagline">शेतकऱ्यांचा विश्वासू साथीदार | चांगले उत्पादन, चांगले शेती</p>
+            <a href="seeds_products.html" class="btn" data-key="hero_btn">आजच ऑर्डर करा →</a>
+        </div>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title" data-key="products_title">आमची प्रमुख उत्पादने</h2>
+        <div class="products">
+            <div class="product-card">
+                <img src="seed.jpg" alt="बियाणे">
+                <h3>🌱 <span data-key="product1_name">दर्जेदार बियाणे</span></h3>
+                <p data-key="product1_desc">उत्तम उत्पादन देणारी प्रमाणित बियाणे</p>
+                    <div class="explore-more-container">
+            <button class="explore-btn" data-key="explore_btn" onclick="window.location.href='seeds_products.html'">🔍 सर्व उत्पादने पाहा →</button>
+        
+        </div>
+            </div>       
+            
+            <div class="product-card">
+                <img src="orgfer.jpg" alt="खते">
+                <h3>🧪 <span data-key="product2_name">जैविक खते</span></h3>
+                <p data-key="product2_desc">जमिनीची सुपीकता वाढवणारी खते</p>         <div class="explore-more-container">
+            <button class="explore-btn" data-key="explore_btn" onclick="window.location.href='ferti_products.html'">🔍 सर्व उत्पादने पाहा →</button>
+        </div>
+            </div>
+            <div class="product-card">
+                <img src="pesti.jpg" alt="कीटकनाशके">
+                <h3>🐞 <span data-key="product3_name">कीटकनाशके</span></h3>
+                <p data-key="product3_desc">पिकांचे संरक्षण करणारी सुरक्षित औषधे</p>         <div class="explore-more-container">
+            <button class="explore-btn" data-key="explore_btn" onclick="window.location.href='pestisides_products.html'">🔍 सर्व उत्पादने पाहा →</button>
+        </div>
+            
+            </div> <div class="product-card">
+                <img src="fertilizer.jpg" alt="खत">
+                <h3>🧪<span data-key="product5_name">खत</span></h3>
+                <p data-key="product5_desc">जमिनीची सुपीकता वाढवणारी खते</p>         <div class="explore-more-container">
+            <button class="explore-btn" data-key="explore_btn" onclick="window.location.href='chem_fer_products.html'">🔍 सर्व उत्पादने पाहा →</button>
+        </div>
+            </div> <div class="product-card">
+                <img src="tonic.jpg" alt="टॉनिक औषधे">
+                <h3> 🥦<span data-key="product6_name">टॉनिक औषधे</span></h3>
+                <p data-key="product6_desc">आधुनिक शेतीसाठी अधिक उत्पादन</p>         <div class="explore-more-container">
+            <button class="explore-btn" data-key="explore_btn" onclick="window.location.href='tonics_products.html'">🔍 सर्व उत्पादने पाहा →</button>
+            </div></div>
+            <div class="product-card">
+                <img src="machine.jpg" alt="शेती साहित्य">
+                <h3>🔧 <span data-key="product4_name">शेती साहित्य</span></h3>
+                <p data-key="product4_desc">आधुनिक शेतीसाठी सर्व साहित्य</p>         <div class="explore-more-container">
+            <button class="explore-btn" data-key="explore_btn" onclick="window.location.href='equip_products.html'">🔍 सर्व उत्पादने पाहा →</button>
+        </div>
+                </div>
+
+        <h2 class="section-title" data-key="features_title">आमची वैशिष्ट्ये</h2>
+        <div class="features">
+            <div class="feature">
+                <h3>🚚 <span data-key="feature1_name">मोफत शिपिंग</span></h3>
+                <p data-key="feature1_desc">₹500 पेक्षा जास्त ऑर्डरवर मोफत डिलिव्हरी</p>
+            </div>
+            <div class="feature">
+                <h3>✅ <span data-key="feature2_name">100% प्रमाणित</span></h3>
+                <p data-key="feature2_desc">सर्व उत्पादने सरकारी प्रमाणपत्रासह</p>
+            </div>
+            <div class="feature">
+                <h3>👨‍🌾 <span data-key="feature3_name">तज्ज्ञ सल्ला</span></h3>
+                <p data-key="feature3_desc">कृषी तज्ज्ञांचा विनामूल्य सल्ला</p>
+            </div>
+            <div class="feature">
+                <h3>📞 <span data-key="feature4_name">24/7 ग्राहकसेवा</span></h3>
+                <p data-key="feature4_desc">कोणत्याही वेळी मदत उपलब्ध</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>🌾 <span data-key="footer_tagline">AgroStar - शेतकऱ्यांचा विश्वासू साथीदार</span> 🌾</p>
+        <p>© 2025 AgroStar | <span data-key="footer_rights">सर्व हक्क राखीव</span></p>
+        <p><span data-key="footer_contact">संपर्क</span>: 1800-123-4567 | support@agrostar.com</p>
+    </footer>
+
+    <script>
+        // Language translations
+        const translations = {
+            mr: {
+                nav_home: "मुख्यपृष्ठ",
+                nav_products: "उत्पादने",
+                nav_tips: "शेती टिप्स",
+                nav_about: "आमच्याबद्दल",
+                nav_contact: "संपर्क",
+                hero_tagline: "शेतकऱ्यांचा विश्वासू साथीदार | चांगले उत्पादन, चांगले शेती",
+                hero_btn: "आजच ऑर्डर करा →",
+                products_title: "आमची प्रमुख उत्पादने",
+                product1_name: "दर्जेदार बियाणे",
+                product1_desc: "उत्तम उत्पादन देणारी प्रमाणित बियाणे",
+                product2_name: "जैविक खते",
+                product2_desc: "जमिनीची सुपीकता वाढवणारी खते",
+                product3_name: "कीटकनाशके",
+                product3_desc: "पिकांचे संरक्षण करणारी सुरक्षित औषधे",
+                product4_name: "शेती साहित्य",
+                product4_desc: "आधुनिक शेतीसाठी सर्व साहित्य",
+                 product5_name: " खते",
+                product5_desc: "जमिनीची सुपीकता वाढवणारी खते",
+                 product6_name: "टॉनिक औषधे",
+                product6_desc: "अधिक उत्पादन",
+                features_title: "आमची वैशिष्ट्ये",
+                feature1_name: "मोफत शिपिंग",
+                feature1_desc: "₹500 पेक्षा जास्त ऑर्डरवर मोफत डिलिव्हरी",
+                feature2_name: "100% प्रमाणित",
+                feature2_desc: "सर्व उत्पादने सरकारी प्रमाणपत्रासह",
+                feature3_name: "तज्ज्ञ सल्ला",
+                feature3_desc: "कृषी तज्ज्ञांचा विनामूल्य सल्ला",
+                feature4_name: "24/7 ग्राहकसेवा",
+                feature4_desc: "कोणत्याही वेळी मदत उपलब्ध",
+                footer_tagline: "AgroStar - शेतकऱ्यांचा विश्वासू साथीदार",
+                footer_rights: "सर्व हक्क राखीव",
+                explore_btn: "🔍 सर्व उत्पादने पाहा →",
+                footer_contact: "संपर्क"
+            },
+            hi: {
+                nav_home: "मुख्यपृष्ठ",
+                nav_products: "उत्पाद",
+                nav_tips: "कृषि टिप्स",
+                nav_about: "हमारे बारे में",
+                nav_contact: "संपर्क",
+                hero_tagline: "किसानों का विश्वसनीय साथी | अच्छी उपज, अच्छी खेती",
+                explore_btn: "🔍 सभी उत्पादन देखें →",
+                hero_btn: "आज ही ऑर्डर करें →",
+                products_title: "हमारे प्रमुख उत्पाद",
+                product1_name: "उत्तम बीज",
+                product1_desc: "बेहतर उपज देने वाले प्रमाणित बीज",
+                product2_name: "जैविक खाद",
+                product2_desc: "मिट्टी की उर्वरता बढ़ाने वाली खाद",
+                product3_name: "कीटनाशक",
+                product3_desc: "फसलों की सुरक्षा के लिए सुरक्षित दवाएं",
+                product4_name: "कृषि उपकरण",
+                product4_desc: "आधुनिक खेती के लिए सभी सामग्री",
+                product5_name: "खते",
+                product5_desc: "बेहतर उपज देने वाले प्रमाणित बीज",
+                 product6_name: "टॉनिक ",
+                product6_desc: "बेहतर उपज अधिक उत्पादन",      
+                features_title: "हमारी विशेषताएँ",
+                feature1_name: "मुफ्त शिपिंग",
+                feature1_desc: "₹500 से अधिक ऑर्डर पर मुफ्त डिलीवरी",
+                feature2_name: "100% प्रमाणित",
+                feature2_desc: "सभी उत्पाद सरकारी प्रमाणपत्र के साथ",
+                feature3_name: "विशेषज्ञ सलाह",
+                feature3_desc: "कृषि विशेषज्ञों की निःशुल्क सलाह",
+                feature4_name: "24/7 ग्राहक सेवा",
+                feature4_desc: "किसी भी समय सहायता उपलब्ध",
+                footer_tagline: "AgroStar - किसानों का विश्वसनीय साथी",
+                footer_rights: "सभी अधिकार सुरक्षित",
+                footer_contact: "संपर्क"
+            },
+            en: {
+                nav_home: "Home",
+                nav_products: "Products",
+                nav_tips: "Farming Tips",
+                nav_about: "About Us",
+                nav_contact: "Contact",
+                hero_tagline: "Farmer's Trusted Partner | Better Yield, Better Farming",
+                explore_btn: "🔍 Explore All Products →",
+                hero_btn: "Order Now →",
+                products_title: "Our Premium Products",
+                product1_name: "Quality Seeds",
+                product1_desc: "Certified seeds for better yield",
+                product2_name: "Organic Fertilizers",
+                product2_desc: "Enhance soil fertility naturally",
+                product3_name: "Pesticides",
+                product3_desc: "Safe crop protection solutions",
+                product4_name: "Farming Equipment",
+                product4_desc: "All modern farming tools available",
+                product5_name: "Fertilizers",
+                product5_desc: "Prodction in speed up and more",
+                product6_name: "Tonics",
+                product6_desc: "More Production",
+                features_title: "Our Features",
+                feature1_name: "Free Shipping",
+                feature1_desc: "Free delivery on orders above ₹500",
+                feature2_name: "100% Certified",
+                feature2_desc: "All products with government certification",
+                feature3_name: "Expert Advice",
+                feature3_desc: "Free consultation with agriculture experts",
+                feature4_name: "24/7 Support",
+                feature4_desc: "Help available anytime",
+                footer_tagline: "AgroStar - Farmer's Trusted Partner",
+                footer_rights: "All Rights Reserved",
+                footer_contact: "Contact"
+            }
+        };
+
+        // Function to change language
+        function changeLanguage(lang) {
+            // Update all elements with data-key attribute
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[lang][key];
+                    } else if (element.tagName === 'A' && element.classList.contains('btn')) {
+                        element.innerHTML = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            // Update product spans separately
+            document.querySelectorAll('.product-card h3 span, .feature h3 span').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Update active button style
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Save language preference
+            localStorage.setItem('preferred_language', lang);
+        }
+
+        // Add event listeners to language buttons
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.getAttribute('data-lang');
+                changeLanguage(lang);
+            });
+        });
+
+        // Load saved language preference
+        const savedLang = localStorage.getItem('preferred_language') || 'mr';
+        changeLanguage(savedLang);
+    </script>
+</body>
+</html>

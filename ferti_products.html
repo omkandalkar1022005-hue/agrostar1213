@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroStar | जैविक खते - Organic Fertilizers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Poppins', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #1e3a1f;
+            background: linear-gradient(135deg, #fef9e6 0%, #fff5e0 100%);
+        }
+
+        header {
+            background: #1e5622;
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #ffd966;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffd966;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #ffd966;
+            color: #ffd966;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: #ffd966;
+            color: #1e5622;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #1e5622, #2a7a2f);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '🌱';
+            font-size: 8rem;
+            position: absolute;
+            opacity: 0.1;
+            bottom: -20px;
+            right: 20px;
+        }
+
+        .page-header::after {
+            content: '🌾';
+            font-size: 8rem;
+            position: absolute;
+            opacity: 0.1;
+            top: -20px;
+            left: 20px;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .filter-section {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 2px solid #1e5622;
+            color: #1e5622;
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #1e5622;
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.15);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #ffd966;
+            color: #1e5622;
+            padding: 0.25rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .product-badge.hot {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .product-badge.bestseller {
+            background: #4caf50;
+            color: white;
+        }
+
+        .product-badge.organic {
+            background: #2e7d32;
+            color: white;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1rem;
+        }
+
+        .product-category {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #1e5622;
+            padding: 0.15rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            color: #1e5622;
+            margin-bottom: 0.3rem;
+            font-weight: bold;
+        }
+
+        .product-desc {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .product-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-tag {
+            background: #f0f0f0;
+            padding: 0.15rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            color: #555;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ff8c00;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price small {
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        .order-btn {
+            display: block;
+            background: linear-gradient(135deg, #1e5622, #2a7a2f);
+            color: white;
+            text-align: center;
+            padding: 0.6rem;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .order-btn:hover {
+            background: linear-gradient(135deg, #ffd966, #ffcd38);
+            color: #1e5622;
+            transform: scale(1.02);
+        }
+
+        .back-home {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .back-btn {
+            background: #1e5622;
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #ffd966;
+            color: #1e5622;
+            transform: translateX(-5px);
+        }
+
+        footer {
+            background: #0f3a10;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links {
+                gap: 1rem;
+                justify-content: center;
+            }
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🌾 Agro<span>Star</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html" data-key="nav_home">मुख्यपृष्ठ</a></li>
+                <li><a href="seeds_products.html" data-key="nav_products">उत्पादने</a></li>
+                <li><a href="seeds_products.html" data-key="nav_seeds">बियाणे</a></li>
+                <li><a href="ferti_products.html" data-key="nav_fertilizers">खते</a></li>
+                <li><a href="tips.html" data-key="nav_tips">शेती टिप्स</a></li>
+                <li><a href="contact.html" data-key="nav_contact">संपर्क</a></li>
+                <li>
+                    <div class="lang-switch">
+                        <button class="lang-btn active" data-lang="mr">मराठी</button>
+                        <button class="lang-btn" data-lang="hi">हिंदी</button>
+                        <button class="lang-btn" data-lang="en">English</button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <h1 data-key="page_title">🌱 जैविक खते</h1>
+        <p data-key="page_subtitle">शेतीला सुपीक, उत्पादनाला भरपूर - 100% नैसर्गिक खते</p>
+    </div>
+
+    <div class="filter-section">
+        <div class="filter-bar" id="filterBar">
+            <button class="filter-btn active" data-filter="all" data-key="filter_all">सर्व</button>
+            <button class="filter-btn" data-filter="vermicompost" data-key="filter_vermi">कंपोस्ट खत</button>
+            <button class="filter-btn" data-filter="manure" data-key="filter_manure">शेणखत</button>
+            <button class="filter-btn" data-filter="liquid" data-key="filter_liquid">द्रव खते</button>
+            <button class="filter-btn" data-filter="green" data-key="filter_green">हिरवळीची खते</button>
+            <button class="filter-btn" data-filter="bio" data-key="filter_bio">जैविक कीटकनाशके</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="products-grid" id="productsGrid"></div>
+        <div class="back-home">
+            <a href="index.html" class="back-btn" data-key="back_home">← मुख्यपृष्ठावर जा</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>🌾 <span data-key="footer_tagline">AgroStar - शेतकऱ्यांचा विश्वासू साथीदार</span> 🌾</p>
+        <p>© 2025 AgroStar | <span data-key="footer_rights">सर्व हक्क राखीव</span></p>
+    </footer>
+
+    <script>
+        // Complete Fertilizers Data - 20+ Products in 3 Languages
+        const fertilizersData = {
+            mr: [
+                { id: 1, name: "केंचुआ खत (वर्मीकंपोस्ट)", category: "vermicompost", price: "₹25/kg", desc: "उत्तम दर्जाचे केंचुआ खत, जमिनीची सुपीकता वाढवते", features: ["जमिनीची रचना सुधारते", "पिकांची वाढ वेगाने", "100% नैसर्गिक"], badge: "bestseller", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 2, name: "गांडूळ खत", category: "vermicompost", price: "₹30/kg", desc: "शुद्ध गांडूळ खत, पिकांसाठी उत्तम", features: ["सूक्ष्म अन्नद्रव्ये", "जमिनीतील सजीवांसाठी पोषक", "पाणी टिकवून ठेवते"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 3, name: "नाडेप कंपोस्ट", category: "vermicompost", price: "₹20/kg", desc: "नाडेप पद्धतीने तयार केलेले सेंद्रिय खत", features: ["पोषकतत्वांनी युक्त", "कमी खर्च", "दीर्घकाळ टिकणारे"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 4, name: "शेणखत", category: "manure", price: "₹8/kg", desc: "शुद्ध गाईचे शेणखत, पारंपारिक शेतीसाठी", features: ["जमिनीत हवा खेळती ठेवते", "पाणी धारणा क्षमता वाढवते", "सहज उपलब्ध"], badge: "hot", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 5, name: "बकरीखत", category: "manure", price: "₹12/kg", desc: "शेळी-मेंढीचे खत, पिकांसाठी उत्तम", features: ["नत्राचे प्रमाण अधिक", "जलद विघटन", "रोगप्रतिकारक शक्ती वाढवते"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 6, name: "कोंबडीखत", category: "manure", price: "₹15/kg", desc: "कोंबडीचे खत, भाजीपाल्यासाठी उत्तम", features: ["नत्राचे प्रचंड प्रमाण", "जलद परिणाम", "भाजीपाल्यासाठी विशेष"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 7, name: "जीवामृत", category: "liquid", price: "₹50/litre", desc: "द्रव सेंद्रिय खत, पिकांना त्वरित पोषण", features: ["त्वरित परिणाम", "पानांवर फवारता येते", "सूक्ष्मजीवांनी युक्त"], badge: "bestseller", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 8, name: "पंचगव्य", category: "liquid", price: "₹60/litre", desc: "गौ उत्पादनांपासून तयार केलेले सेंद्रिय खत", features: ["पिकांची वाढ वाढवते", "रोगप्रतिकारक शक्ती", "फळांची चव सुधारते"], badge: "hot", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 9, name: "अमृतपाणी", category: "liquid", price: "₹40/litre", desc: "द्रव सेंद्रिय खत, सर्व पिकांसाठी", features: ["पोषकतत्वांचा समतोल", "सहज शोषक", "कमी खर्च"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 10, name: "सीवीड खत", category: "liquid", price: "₹120/litre", desc: "समुद्री शेवाळांपासून तयार केलेले खत", features: ["वाढ नियामक", "फुलांचे प्रमाण वाढवते", "तणाव सहनशीलता"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 11, name: "हिरवळीचे खत - ढैंचा", category: "green", price: "₹80/kg", desc: "ढैंचा बियाणे, हिरवळीच्या खतासाठी", features: ["नत्र स्थिरीकरण", "जमिनीची सुपीकता", "तण नियंत्रण"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 12, name: "हिरवळीचे खत - सनई", category: "green", price: "₹70/kg", desc: "सनई बियाणे, हिरवळीच्या खतासाठी", features: ["जलद वाढ", "जमिनीत सेंद्रिय पदार्थ", "पिकांना पोषण"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 13, name: "हिरवळीचे खत - गवार", category: "green", price: "₹90/kg", desc: "गवार बियाणे, हिरवळीच्या खतासाठी", features: ["उष्ण हवामानासाठी", "जमिनीत नत्र वाढवते", "कमी पाणी"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 14, name: "निमोली", category: "bio", price: "₹150/kg", desc: "निंबोळी अर्क, जैविक कीटकनाशक", features: ["कीड नियंत्रण", "पिकांना सुरक्षित", "पर्यावरणपूरक"], badge: "bestseller", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 15, name: "त्रिचोडर्मा", category: "bio", price: "₹120/kg", desc: "जैविक बुरशीनाशक, मुळांचे संरक्षण", features: ["मूळकुजणे नियंत्रण", "रोगप्रतिकारक शक्ती", "जमिनीतील सजीव वाढवते"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 16, name: "स्यूडोमोनास", category: "bio", price: "₹110/kg", desc: "जैविक जीवाणू, पानांवरील रोग नियंत्रण", features: ["पानकुजणे नियंत्रण", "वनस्पती संरक्षण", "सुरक्षित"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 17, name: "व्हर्टिसिलियम", category: "bio", price: "₹130/kg", desc: "जैविक कीटकनाशक, शोषक किडींसाठी", features: ["शोषक किडी नियंत्रण", "दीर्घकाळ परिणाम", "पिकांना सुरक्षित"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 18, name: "बोन मील", category: "manure", price: "₹45/kg", desc: "हाडांचे पीठ, फॉस्फरसयुक्त खत", features: ["फॉस्फरसचा उत्तम स्रोत", "मुळांची वाढ", "फुलांचे प्रमाण"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 19, name: "नेम मील", category: "manure", price: "₹55/kg", desc: "निंबोळी पीठ, खत व कीटकनाशक", features: ["कीड नियंत्रण", "जमिनीची सुपीकता", "पोषकतत्वे"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 20, name: "कोकोपीट", category: "vermicompost", price: "₹35/kg", desc: "नारळाच्या सालीपासून तयार केलेले माध्यम", features: ["पाणी टिकवून ठेवते", "हलके आणि स्वच्छ", "रोपांसाठी उत्तम"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 21, name: "बायोचार", category: "manure", price: "₹60/kg", desc: "जैविक कोळसा, जमिनीची रचना सुधारते", features: ["कार्बन स्थिरीकरण", "पाणी धारणा", "सूक्ष्मजीव वाढ"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 22, name: "फिश मील", category: "liquid", price: "₹80/kg", desc: "माशांचे पीठ, नत्रयुक्त खत", features: ["उच्च नत्र", "जलद परिणाम", "सेंद्रिय शेतीसाठी"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" }
+            ],
+            hi: [
+                { id: 1, name: "केंचुआ खाद (वर्मीकंपोस्ट)", category: "vermicompost", price: "₹25/kg", desc: "उत्तम गुणवत्ता वाली केंचुआ खाद, मिट्टी की उर्वरता बढ़ाती है", features: ["मिट्टी की संरचना सुधारती है", "फसलों की वृद्धि तेज", "100% प्राकृतिक"], badge: "bestseller", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 2, name: "गांडूळ खाद", category: "vermicompost", price: "₹30/kg", desc: "शुद्ध गांडूळ खाद, फसलों के लिए उत्तम", features: ["सूक्ष्म पोषक तत्व", "मिट्टी के जीवों के लिए पोषक", "पानी सोखने की क्षमता"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 3, name: "नाडेप कंपोस्ट", category: "vermicompost", price: "₹20/kg", desc: "नाडेप विधि से बनाई गई जैविक खाद", features: ["पोषक तत्वों से भरपूर", "कम लागत", "लंबे समय तक प्रभावी"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 4, name: "गोबर खाद", category: "manure", price: "₹8/kg", desc: "शुद्ध गाय का गोबर, पारंपरिक खेती के लिए", features: ["मिट्टी में हवा का संचार", "पानी धारण क्षमता बढ़ाती है", "आसानी से उपलब्ध"], badge: "hot", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 5, name: "बकरी खाद", category: "manure", price: "₹12/kg", desc: "बकरी-भेड़ की खाद, फसलों के लिए उत्तम", features: ["नाइट्रोजन की मात्रा अधिक", "जल्दी घुलनशील", "रोग प्रतिरोधक क्षमता"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 6, name: "मुर्गी खाद", category: "manure", price: "₹15/kg", desc: "मुर्गी की खाद, सब्जियों के लिए उत्तम", features: ["नाइट्रोजन की भरपूर मात्रा", "तेज़ प्रभाव", "सब्जियों के लिए विशेष"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 7, name: "जीवामृत", category: "liquid", price: "₹50/litre", desc: "तरल जैविक खाद, फसलों को तुरंत पोषण", features: ["तुरंत प्रभाव", "पत्तों पर छिड़काव योग्य", "सूक्ष्मजीवों से भरपूर"], badge: "bestseller", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 8, name: "पंचगव्य", category: "liquid", price: "₹60/litre", desc: "गौ उत्पादों से बनी जैविक खाद", features: ["फसलों की वृद्धि बढ़ाती है", "रोग प्रतिरोधक क्षमता", "फलों का स्वाद सुधारती है"], badge: "hot", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 9, name: "अमृतपाणी", category: "liquid", price: "₹40/litre", desc: "तरल जैविक खाद, सभी फसलों के लिए", features: ["पोषक तत्वों का संतुलन", "आसान अवशोषण", "कम लागत"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 10, name: "सीवीड खाद", category: "liquid", price: "₹120/litre", desc: "समुद्री शैवाल से बनी खाद", features: ["वृद्धि नियामक", "फूलों की संख्या बढ़ाती है", "तनाव सहनशीलता"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 11, name: "हरी खाद - ढैंचा", category: "green", price: "₹80/kg", desc: "ढैंचा बीज, हरी खाद के लिए", features: ["नाइट्रोजन स्थिरीकरण", "मिट्टी की उर्वरता", "खरपतवार नियंत्रण"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 12, name: "हरी खाद - सनई", category: "green", price: "₹70/kg", desc: "सनई बीज, हरी खाद के लिए", features: ["तेज़ वृद्धि", "मिट्टी में जैविक पदार्थ", "फसलों को पोषण"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 13, name: "हरी खाद - गवार", category: "green", price: "₹90/kg", desc: "गवार बीज, हरी खाद के लिए", features: ["गर्म मौसम के लिए", "मिट्टी में नाइट्रोजन बढ़ाती है", "कम पानी"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 14, name: "नीमोली", category: "bio", price: "₹150/kg", desc: "नीम का अर्क, जैविक कीटनाशक", features: ["कीट नियंत्रण", "फसलों के लिए सुरक्षित", "पर्यावरण अनुकूल"], badge: "bestseller", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 15, name: "ट्राइकोडर्मा", category: "bio", price: "₹120/kg", desc: "जैविक फफूंदनाशक, जड़ों का संरक्षण", features: ["जड़ सड़न नियंत्रण", "रोग प्रतिरोधक क्षमता", "मिट्टी के जीव बढ़ाती है"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 16, name: "स्यूडोमोनास", category: "bio", price: "₹110/kg", desc: "जैविक जीवाणु, पत्तियों के रोग नियंत्रण", features: ["पत्ती झुलसा नियंत्रण", "पौध संरक्षण", "सुरक्षित"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 17, name: "वर्टिसिलियम", category: "bio", price: "₹130/kg", desc: "जैविक कीटनाशक, चूसक कीटों के लिए", features: ["चूसक कीट नियंत्रण", "लंबे समय तक प्रभाव", "फसलों के लिए सुरक्षित"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 18, name: "बोन मील", category: "manure", price: "₹45/kg", desc: "हड्डियों का आटा, फॉस्फोरस युक्त खाद", features: ["फॉस्फोरस का उत्तम स्रोत", "जड़ों की वृद्धि", "फूलों की संख्या"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 19, name: "नीम मील", category: "manure", price: "₹55/kg", desc: "नीम की खली, खाद और कीटनाशक", features: ["कीट नियंत्रण", "मिट्टी की उर्वरता", "पोषक तत्व"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 20, name: "कोकोपीट", category: "vermicompost", price: "₹35/kg", desc: "नारियल की जटा से बना माध्यम", features: ["पानी सोखने की क्षमता", "हल्का और स्वच्छ", "पौधों के लिए उत्तम"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 21, name: "बायोचार", category: "manure", price: "₹60/kg", desc: "जैविक कोयला, मिट्टी की संरचना सुधारता है", features: ["कार्बन स्थिरीकरण", "पानी धारण क्षमता", "सूक्ष्मजीव वृद्धि"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 22, name: "फिश मील", category: "liquid", price: "₹80/kg", desc: "मछली का आटा, नाइट्रोजन युक्त खाद", features: ["उच्च नाइट्रोजन", "तेज़ प्रभाव", "जैविक खेती के लिए"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" }
+            ],
+            en: [
+                { id: 1, name: "Vermicompost", category: "vermicompost", price: "₹25/kg", desc: "High-quality vermicompost, enhances soil fertility", features: ["Improves soil structure", "Fast crop growth", "100% Natural"], badge: "bestseller", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 2, name: "Earthworm Compost", category: "vermicompost", price: "₹30/kg", desc: "Pure earthworm compost, excellent for crops", features: ["Rich in micronutrients", "Feeds soil organisms", "Water retention"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 3, name: "Nadep Compost", category: "vermicompost", price: "₹20/kg", desc: "Organic compost made by Nadep method", features: ["Nutrient rich", "Low cost", "Long lasting"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 4, name: "Cow Dung Manure", category: "manure", price: "₹8/kg", desc: "Pure cow dung manure for traditional farming", features: ["Aerates soil", "Improves water holding capacity", "Easily available"], badge: "hot", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 5, name: "Goat Manure", category: "manure", price: "₹12/kg", desc: "Goat and sheep manure, excellent for crops", features: ["High nitrogen content", "Quick decomposition", "Boosts immunity"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 6, name: "Poultry Manure", category: "manure", price: "₹15/kg", desc: "Chicken manure, specially for vegetables", features: ["Rich in nitrogen", "Fast results", "Ideal for vegetables"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 7, name: "Jeevamrut", category: "liquid", price: "₹50/litre", desc: "Liquid organic fertilizer, instant nutrition", features: ["Quick results", "Can be sprayed on leaves", "Rich in microbes"], badge: "bestseller", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 8, name: "Panchagavya", category: "liquid", price: "₹60/litre", desc: "Organic fertilizer made from cow products", features: ["Promotes plant growth", "Disease resistance", "Improves fruit taste"], badge: "hot", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 9, name: "Amritpani", category: "liquid", price: "₹40/litre", desc: "Liquid organic fertilizer for all crops", features: ["Balanced nutrients", "Easy absorption", "Low cost"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 10, name: "Seaweed Fertilizer", category: "liquid", price: "₹120/litre", desc: "Fertilizer made from seaweed", features: ["Growth regulator", "Increases flowering", "Stress tolerance"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 11, name: "Green Manure - Dhaincha", category: "green", price: "₹80/kg", desc: "Dhaincha seeds for green manure", features: ["Nitrogen fixation", "Soil fertility", "Weed control"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 12, name: "Green Manure - Sunn Hemp", category: "green", price: "₹70/kg", desc: "Sunn hemp seeds for green manure", features: ["Fast growth", "Adds organic matter", "Crop nutrition"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 13, name: "Green Manure - Guar", category: "green", price: "₹90/kg", desc: "Guar seeds for green manure", features: ["For hot climate", "Increases soil nitrogen", "Low water requirement"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 14, name: "Neem Oil Cake", category: "bio", price: "₹150/kg", desc: "Neem extract, bio-pesticide", features: ["Pest control", "Safe for crops", "Eco-friendly"], badge: "bestseller", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 15, name: "Trichoderma", category: "bio", price: "₹120/kg", desc: "Bio-fungicide, root protection", features: ["Controls root rot", "Disease resistance", "Enhances soil microbes"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 16, name: "Pseudomonas", category: "bio", price: "₹110/kg", desc: "Bio-bacteria, controls leaf diseases", features: ["Controls leaf blight", "Plant protection", "Safe"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 17, name: "Verticillium", category: "bio", price: "₹130/kg", desc: "Bio-pesticide for sucking pests", features: ["Controls sucking pests", "Long lasting effect", "Safe for crops"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 18, name: "Bone Meal", category: "manure", price: "₹45/kg", desc: "Bone powder, phosphorus-rich fertilizer", features: ["Excellent phosphorus source", "Root development", "Increases flowering"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 19, name: "Neem Meal", category: "manure", price: "₹55/kg", desc: "Neem seed cake, fertilizer & pesticide", features: ["Pest control", "Soil fertility", "Nutrient rich"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 20, name: "Coco Peat", category: "vermicompost", price: "₹35/kg", desc: "Made from coconut husk, growing medium", features: ["Water retention", "Light and clean", "Ideal for plants"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 21, name: "Biochar", category: "manure", price: "₹60/kg", desc: "Bio-charcoal, improves soil structure", features: ["Carbon sequestration", "Water retention", "Microbial growth"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" },
+                { id: 22, name: "Fish Meal", category: "liquid", price: "₹80/kg", desc: "Fish powder, nitrogen-rich fertilizer", features: ["High nitrogen", "Quick results", "For organic farming"], badge: "", image: "https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400" }
+            ]
+        };
+
+        const translations = {
+            mr: {
+                nav_home: "मुख्यपृष्ठ",
+                nav_products: "उत्पादने",
+                nav_seeds: "बियाणे",
+                nav_fertilizers: "खते",
+                nav_tips: "शेती टिप्स",
+                nav_contact: "संपर्क",
+                page_title: "🌱 जैविक खते",
+                page_subtitle: "शेतीला सुपीक, उत्पादनाला भरपूर - 100% नैसर्गिक खते",
+                filter_all: "सर्व",
+                filter_vermi: "कंपोस्ट खत",
+                filter_manure: "शेणखत",
+                filter_liquid: "द्रव खते",
+                filter_green: "हिरवळीची खते",
+                filter_bio: "जैविक कीटकनाशके",
+                back_home: "← मुख्यपृष्ठावर जा",
+                footer_tagline: "AgroStar - शेतकऱ्यांचा विश्वासू साथीदार",
+                footer_rights: "सर्व हक्क राखीव",
+                order_btn: "🛒 आता ऑर्डर करा"
+            },
+            hi: {
+                nav_home: "मुख्यपृष्ठ",
+                nav_products: "उत्पाद",
+                nav_seeds: "बीज",
+                nav_fertilizers: "खाद",
+                nav_tips: "कृषि टिप्स",
+                nav_contact: "संपर्क",
+                page_title: "🌱 जैविक खाद",
+                page_subtitle: "खेती को उपजाऊ, उत्पादन को भरपूर - 100% प्राकृतिक खाद",
+                filter_all: "सभी",
+                filter_vermi: "कंपोस्ट खाद",
+                filter_manure: "गोबर खाद",
+                filter_liquid: "तरल खाद",
+                filter_green: "हरी खाद",
+                filter_bio: "जैविक कीटनाशक",
+                back_home: "← मुख्यपृष्ठ पर जाएं",
+                footer_tagline: "AgroStar - किसानों का विश्वसनीय साथी",
+                footer_rights: "सभी अधिकार सुरक्षित",
+                order_btn: "🛒 अभी ऑर्डर करें"
+            },
+            en: {
+                nav_home: "Home",
+                nav_products: "Products",
+                nav_seeds: "Seeds",
+                nav_fertilizers: "Fertilizers",
+                nav_tips: "Farming Tips",
+                nav_contact: "Contact",
+                page_title: "🌱 Organic Fertilizers",
+                page_subtitle: "Enrich your soil, boost your yield - 100% Natural Fertilizers",
+                filter_all: "All",
+                filter_vermi: "Compost",
+                filter_manure: "Manure",
+                filter_liquid: "Liquid Fertilizers",
+                filter_green: "Green Manure",
+                filter_bio: "Bio-Pesticides",
+                back_home: "← Back to Home",
+                footer_tagline: "AgroStar - Farmer's Trusted Partner",
+                footer_rights: "All Rights Reserved",
+                order_btn: "🛒 Order Now"
+            }
+        };
+
+        let currentLang = 'mr';
+        let currentFilter = 'all';
+
+        function getBadgeClass(badge) {
+            if (badge === 'hot') return 'hot';
+            if (badge === 'bestseller') return 'bestseller';
+            return '';
+        }
+
+        function getBadgeText(badge, lang) {
+            const texts = {
+                mr: { hot: "हॉट", bestseller: "बेस्टसेलर" },
+                hi: { hot: "हॉट", bestseller: "बेस्टसेलर" },
+                en: { hot: "Hot", bestseller: "Bestseller" }
+            };
+            if (badge === 'hot') return texts[lang].hot;
+            if (badge === 'bestseller') return texts[lang].bestseller;
+            return '';
+        }
+
+        function getCategoryName(category, lang) {
+            const names = {
+                mr: { vermicompost: "कंपोस्ट खत", manure: "शेणखत", liquid: "द्रव खते", green: "हिरवळीची खते", bio: "जैविक कीटकनाशके" },
+                hi: { vermicompost: "कंपोस्ट खाद", manure: "गोबर खाद", liquid: "तरल खाद", green: "हरी खाद", bio: "जैविक कीटनाशक" },
+                en: { vermicompost: "Compost", manure: "Manure", liquid: "Liquid", green: "Green Manure", bio: "Bio-Pesticide" }
+            };
+            return names[lang][category] || category;
+        }
+
+        function renderProducts() {
+            const products = fertilizersData[currentLang];
+            if (!products || products.length === 0) {
+                document.getElementById('productsGrid').innerHTML = '<div style="text-align:center; padding:3rem;">कोणतीही उत्पादने सापडली नाहीत / No products found</div>';
+                return;
+            }
+            
+            const filtered = currentFilter === 'all' ? products : products.filter(p => p.category === currentFilter);
+            const grid = document.getElementById('productsGrid');
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div style="text-align:center; padding:3rem;">या श्रेणीत कोणतीही उत्पादने नाहीत / No products in this category</div>';
+                return;
+            }
+            
+            grid.innerHTML = filtered.map(product => `
+                <div class="product-card">
+                    ${product.badge ? `<div class="product-badge ${getBadgeClass(product.badge)}">${getBadgeText(product.badge, currentLang)}</div>` : ''}
+                    <img class="product-img" src="${product.image}" alt="${product.name}" onerror="this.src='https://images.unsplash.com/photo-1585637071663-799fad39aa4a?w=400'">
+                    <div class="product-info">
+                        <span class="product-category">${getCategoryName(product.category, currentLang)}</span>
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-desc">${product.desc}</p>
+                        <div class="product-features">
+                            ${product.features.map(f => `<span class="feature-tag">✓ ${f}</span>`).join('')}
+                        </div>
+                        <div class="product-price">${product.price} <small>${currentLang === 'en' ? '/ kg' : (currentLang === 'hi' ? '/ किलो' : '/ किलो')}</small></div>
+                        <button class="order-btn" onclick="alert('${currentLang === 'mr' ? 'ऑर्डर स्वीकारली गेली! लवकरच संपर्क करू.' : currentLang === 'hi' ? 'ऑर्डर स्वीकार कर ली गई! जल्द संपर्क करेंगे.' : 'Order placed! We will contact you soon.'}')">${translations[currentLang].order_btn}</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateLanguage(lang) {
+            currentLang = lang;
+            
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    if (el.tagName === 'BUTTON' && el.classList.contains('order-btn')) return;
+                    el.textContent = translations[lang][key];
+                }
+            });
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                const key = btn.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    btn.textContent = translations[lang][key];
+                }
+            });
+            
+            renderProducts();
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) btn.classList.add('active');
+            });
+            
+            localStorage.setItem('preferred_language', lang);
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => updateLanguage(btn.getAttribute('data-lang')));
+        });
+        
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.getAttribute('data-filter');
+                renderProducts();
+            });
+        });
+        
+        const savedLang = localStorage.getItem('preferred_language') || 'mr';
+        updateLanguage(savedLang);
+    </script>
+</body>
+</html>
